@@ -1,3 +1,4 @@
+docker创建一个mysql容器
 ```sql
 docker run \
 --name multi_ds_db \
@@ -6,17 +7,17 @@ docker run \
 -p 33006:3306  \
 -di mysql:8.0.18
 ```
-
+连接mysql
 ```
 jdbc:mysql://120.25.216.234:33006/?serverTimezone=UTC
 ```
-
+创建两个数据库
 ```
 create database order_db;
 create database user_db;
 ```
 
-
+每个数据库插入一张表
 
 ```sql
 CREATE TABLE `user_db`.`t_user` (
@@ -41,8 +42,6 @@ CREATE TABLE `order_db`.`t_order`
   COLLATE = utf8mb4_0900_ai_ci;
 ```
 
-
-
 ```sql
 select * from `order_db`.`t_order`;
 select * from `user_db`.`t_user`;
@@ -52,4 +51,8 @@ select * from `user_db`.`t_user`;
 show create table `user_db`.`t_user`;
 show create table `order_db`.`t_order`;
 ```
+
+
+
+**案例还存在问题**，如果采用spirngdata自动创建表，这个时候创建的两张表在一张数据库去了，repository切入点表达式也无法切入进去
 
