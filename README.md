@@ -1,6 +1,6 @@
 # boot
 
-- [多数据源](./boot/multiple-data-sources)
+- [多数据源](./spring-boot/multiple-data-sources)
 
   
 
