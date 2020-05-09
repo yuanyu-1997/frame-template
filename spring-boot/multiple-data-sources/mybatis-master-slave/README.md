@@ -44,7 +44,7 @@ docker restart master_db
 jdbc:mysql://120.25.216.234:33060/?serverTimezone=UTC
 ```
 
-创建同步数据的账户，并且进行授权操作，注意ip地址为从数据库的ip地址
+创建同步数据的账户，并且进行授权操作（注意ip地址为slave数据库的ip地址）
 
 ```bash
 CREATE USER 'sync'@'121.36.33.154' IDENTIFIED WITH mysql_native_password BY '123456';
@@ -101,7 +101,7 @@ docker restart slave_db
 jdbc:mysql://121.36.33.154:33000/?serverTimezone=UTC
 ```
 
-配置同步
+配置同步（注意ip地址是master的ip地址）
 
 ```bash
 CHANGE MASTER TO 
