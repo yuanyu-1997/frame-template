@@ -30,7 +30,7 @@ read-only=0
 binlog-ignore-db=mysql
 ```
 
-![my.cnf](./img/master-my.cnf.png)
+![my.cnf](./img/master-my.cnf.png)****
 
 退出容器后重启容器
 
@@ -44,7 +44,7 @@ docker restart master_db
 jdbc:mysql://120.25.216.234:33060/?serverTimezone=UTC
 ```
 
-创建同步数据的账户，并且进行授权操作（注意ip地址为slave数据库的ip地址）
+创建同步数据的账户，并且进行授权操作（注意**ip地址为slave数据库的ip地址**）
 
 ```bash
 CREATE USER 'sync'@'121.36.33.154' IDENTIFIED WITH mysql_native_password BY '123456';
@@ -65,6 +65,7 @@ mysql> SHOW MASTER STATUS;
 ```
 
 # 【slave】121.36.33.154
+
 创建docker容器
 ```bash
 docker run \
@@ -101,7 +102,7 @@ docker restart slave_db
 jdbc:mysql://121.36.33.154:33000/?serverTimezone=UTC
 ```
 
-配置同步（注意ip地址是master的ip地址）
+配置同步（注意**ip地址是master的ip地址**）
 
 ```bash
 CHANGE MASTER TO 
@@ -129,6 +130,18 @@ SHOW SLAVE STATUS \G
 
 ```
 STOP SLAVE;
+```
+
+在slave创建一个只有查询权限的用户，可以避免很多问题发生
+
+```bash
+CREATE USER  'tms_select'@'%.%.%.%' IDENTIFIED WITH mysql_native_password BY '123456';
+GRANT select ON *.* TO 'tms_select'@'%.%.%.%';
+FLUSH PRIVILEGES;
+```
+
+```bash
+jdbc:mysql://121.36.33.154:33000/?serverTimezone=UTC
 ```
 
 # 测试主从同步
@@ -166,12 +179,26 @@ SELECT * FROM easycode_db.`user`;
 
 
 
-
-
-
-
 ```
 【master】jdbc:mysql://120.25.216.234:33060/easycode_db?serverTimezone=UTC
 【slave】jdbc:mysql://121.36.33.154:33000/easycode_db?serverTimezone=UTC
+```
+
+# 主从复制失败
+
+ https://blog.csdn.net/abcwanglinyong/article/details/96563085 
+
+配置好主从复制后如果**删除从表记录**，会造成主从复制失败；
+
+![my.cnf](./img/sync-err.png)
+
+
+
+
+
+ https://www.oschina.net/question/2398274_2262571 
+
+```properties
+log-error=/usr/local/mysql/data/mysql.log  
 ```
 

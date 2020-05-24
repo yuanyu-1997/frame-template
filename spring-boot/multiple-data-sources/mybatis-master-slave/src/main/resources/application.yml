@@ -9,7 +9,7 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
       read: # 从数据源
         url: jdbc:mysql://121.36.33.154:33000/easycode_db?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
-        username: root
+        username: tms_select
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis:
@@ -19,4 +19,4 @@ server:
 
 logging:
   level:
-    com.nobug.multids: debug
+    cn.yuanyu.multids: debug
