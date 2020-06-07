@@ -1,0 +1,15 @@
+{
+  "form": {
+    "login": {
+      "username": {
+        "desc": "username",
+        "placeholder": "enter username"
+      },
+      "password": {
+        "desc": "password",
+        "placeholder": "enter password"
+      },
+      "submit": "submit"
+    }
+  }
+}

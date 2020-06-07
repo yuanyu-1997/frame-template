@@ -41,11 +41,8 @@ public class User {
     @Column(length = 50)
     private String email;
 
-    public User() {
-    }
-
-    public User(Long id, String username, String password, String name, Integer age, String email) {
-        this.id = id;
+    public User() {}
+    public User(String username, String password, String name, Integer age, String email) {
         this.username = username;
         this.password = password;
         this.name = name;

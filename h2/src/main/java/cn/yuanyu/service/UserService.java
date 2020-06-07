@@ -14,7 +14,7 @@ public interface UserService {
      *
      * @param id 用户表主键
      */
-    User findById(String id);
+    User findById(long id);
 
     /**
      * 添加用户

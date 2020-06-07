@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: db-log
+  profiles:
+    active: dev
+  mvc:
+    static-path-pattern: /static/**
+server:
+  port: 6969
+logging:
+  level:
+    com.nobug : debug

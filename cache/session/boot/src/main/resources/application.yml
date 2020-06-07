@@ -1,0 +1,9 @@
+spring:
+  redis:
+    host: 121.36.33.154
+    port: 6379
+  session:
+    store-type: redis
+    timeout: 1200s
+server:
+  port: 6969

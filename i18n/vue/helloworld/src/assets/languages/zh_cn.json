@@ -1,0 +1,15 @@
+{
+  "form": {
+    "login": {
+      "username": {
+        "desc": "用户名",
+        "placeholder": "请输入用户名"
+      },
+      "password": {
+        "desc": "密码",
+        "placeholder": "请输入密码"
+      },
+      "submit": "登陆"
+    }
+  }
+}

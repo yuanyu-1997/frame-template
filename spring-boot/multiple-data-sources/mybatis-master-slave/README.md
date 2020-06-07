@@ -186,7 +186,12 @@ SELECT * FROM easycode_db.`user`;
 
 # 主从复制失败
 
- https://blog.csdn.net/abcwanglinyong/article/details/96563085 
+```bash
+stop slave;
+reset master;
+```
+
+https://blog.csdn.net/abcwanglinyong/article/details/96563085 
 
 配置好主从复制后如果**删除从表记录**，会造成主从复制失败；
 

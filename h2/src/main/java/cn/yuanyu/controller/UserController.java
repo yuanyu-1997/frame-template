@@ -21,7 +21,7 @@ public class UserController {
      * http://localhost:6969/user/1
      */
     @GetMapping("/{id}")
-    public User findById(@PathVariable String id) {
+    public User findById(@PathVariable long id) {
         return userService.findById(id);
     }
 
