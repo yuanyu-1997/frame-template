@@ -3,6 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.yuanyu.mybatis.mapper.StudentMapper">
 
+    <!--
+        StudentMapper.xml
+    -->
     <resultMap type="cn.yuanyu.mybatis.entity.Student" id="studentResultMap">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
@@ -11,21 +14,47 @@
         <!--
             多对一关联映射
         -->
-        <association property="clazz" javaType="cn.yuanyu.mybatis.entity.Clazz">
-            <id property="id" column="id"/>
-            <result property="code" column="code"/>
-            <result property="name" column="name"/>
+        <association property="clazz"
+                     select="cn.yuanyu.mybatis.mapper.ClazzMapper.getClazzById"
+                     column="clazz_id">
         </association>
     </resultMap>
-
-    <!-- 根据id查询学生信息，多表连接，返回resultMap -->
+    <!-- 根据id查询学生信息 -->
     <select id="selectStudentById" parameterType="int" resultMap="studentResultMap">
         SELECT *
-        FROM tb_student s,
-             tb_clazz c
-        WHERE s.clazz_id = c.id
-          AND s.id = #{id}
+        FROM tb_student
+        WHERE id = #{id}
     </select>
+
+
+    <!--<resultMap type="cn.yuanyu.mybatis.entity.Student" id="studentResultMap">-->
+    <!--    <id property="id" column="sId"/>-->
+    <!--    <result property="name" column="sName"/>-->
+    <!--    <result property="sex" column="sSex"/>-->
+    <!--    <result property="age" column="sAge"/>-->
+    <!--    &lt;!&ndash;-->
+    <!--        多对一关联映射-->
+    <!--    &ndash;&gt;-->
+    <!--    <association property="clazz" javaType="cn.yuanyu.mybatis.entity.Clazz">-->
+    <!--        <id property="id" column="cId"/>-->
+    <!--        <result property="code" column="cCode"/>-->
+    <!--        <result property="name" column="cName"/>-->
+    <!--    </association>-->
+    <!--</resultMap>-->
+    <!--&lt;!&ndash; 根据id查询学生信息，多表连接 &ndash;&gt;-->
+    <!--<select id="selectStudentById" parameterType="int" resultMap="studentResultMap">-->
+    <!--    SELECT s.id   sId,-->
+    <!--           s.name sName,-->
+    <!--           s.sex  sSex,-->
+    <!--           s.age  sAge,-->
+    <!--           c.id   cId,-->
+    <!--           c.code cCode,-->
+    <!--           c.name cName-->
+    <!--    FROM tb_student s,-->
+    <!--         tb_clazz c-->
+    <!--    WHERE s.clazz_id = c.id-->
+    <!--      AND s.id = #{id}-->
+    <!--</select>-->
 
 
     <!-- 根据班级id查询学生信息，返回resultMap -->
@@ -36,7 +65,9 @@
     <!--    WHERE clazz_id = #{id}-->
     <!--</select>-->
 
-    <!-- 根据班级id查询学生信息-->
+    <!--
+        根据班级id查询学生信息
+    -->
     <select id="selectStudentByClazzId" resultType="cn.yuanyu.mybatis.entity.Student">
         SELECT *
         FROM tb_student

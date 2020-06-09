@@ -3,26 +3,70 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.yuanyu.mybatis.mapper.ClazzMapper">
 
+    <!--<resultMap type="cn.yuanyu.mybatis.entity.Clazz" id="clazzResultMap">-->
+    <!--    <id property="id" column="id"/>-->
+    <!--    <result property="code" column="code"/>-->
+    <!--    <result property="name" column="name"/>-->
+    <!--    &lt;!&ndash;-->
+    <!--         一对多关联映射-->
+    <!--         fetchType="lazy"表示懒加载-->
+    <!--     &ndash;&gt;-->
+    <!--    <collection property="students" javaType="ArrayList"-->
+    <!--                column="id" ofType="cn.yuanyu.mybatis.entity.Student"-->
+    <!--                select="cn.yuanyu.mybatis.mapper.StudentMapper.selectStudentByClazzId"-->
+    <!--                fetchType="lazy">-->
+    <!--        <id property="id" column="id"/>-->
+    <!--        <result property="name" column="name"/>-->
+    <!--        <result property="sex" column="sex"/>-->
+    <!--        <result property="age" column="age"/>-->
+    <!--    </collection>-->
+    <!--</resultMap>-->
+    <!--<select id="selectClazzById" parameterType="int" resultMap="clazzResultMap">-->
+    <!--    SELECT *-->
+    <!--    FROM tb_clazz-->
+    <!--    WHERE id = #{id}-->
+    <!--</select>-->
+
+
+    <!--<resultMap type="cn.yuanyu.mybatis.entity.Clazz" id="clazzResultMap">-->
+    <!--    <id property="id" column="cId"/>-->
+    <!--    <result property="code" column="cCode"/>-->
+    <!--    <result property="name" column="cName"/>-->
+    <!--    &lt;!&ndash;  &ndash;&gt;-->
+    <!--    <collection property="students" ofType="cn.yuanyu.mybatis.entity.Student">-->
+    <!--        <id property="id" column="sId"/>-->
+    <!--        <result property="name" column="sName"/>-->
+    <!--        <result property="sex" column="sSex"/>-->
+    <!--        <result property="age" column="sAge"/>-->
+    <!--    </collection>-->
+    <!--</resultMap>-->
     <resultMap type="cn.yuanyu.mybatis.entity.Clazz" id="clazzResultMap">
-        <id property="id" column="id"/>
-        <result property="code" column="code"/>
-        <result property="name" column="name"/>
-        <!--
-             一对多关联映射
-             fetchType="lazy"表示懒加载
-         -->
-        <collection property="students" javaType="ArrayList"
-                    column="id" ofType="cn.yuanyu.mybatis.entity.Student"
-                    select="cn.yuanyu.mybatis.mapper.StudentMapper.selectStudentByClazzId"
-                    fetchType="lazy">
-            <id property="id" column="id"/>
-            <result property="name" column="name"/>
-            <result property="sex" column="sex"/>
-            <result property="age" column="age"/>
+        <id property="id" column="cId"/>
+        <result property="code" column="cCode"/>
+        <result property="name" column="cName"/>
+        <!--  -->
+        <collection property="students" ofType="cn.yuanyu.mybatis.entity.Student">
+            <id property="id" column="sId"/>
+            <result property="name" column="sName"/>
+            <result property="sex" column="sSex"/>
+            <result property="age" column="sAge"/>
         </collection>
     </resultMap>
 
     <select id="selectClazzById" parameterType="int" resultMap="clazzResultMap">
+        SELECT c.id   cId,
+               c.code cCode,
+               c.name cName,
+               s.id   sId,
+               s.name sName,
+               s.sex  sSex,
+               s.age  sAge
+        FROM tb_clazz c
+                 JOIN tb_student s ON c.id = s.clazz_id and c.id = #{id}
+    </select>
+
+
+    <select id="getClazzById" resultType="cn.yuanyu.mybatis.entity.Clazz">
         SELECT *
         FROM tb_clazz
         WHERE id = #{id}

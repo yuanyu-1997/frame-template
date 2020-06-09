@@ -9,7 +9,6 @@ import lombok.Data;
  */
 @Data
 public class Student {
-
     /**
      * 学生id，主键
      */
@@ -27,7 +26,6 @@ public class Student {
      * 年龄
      */
     private Integer age;
-
     /**
      * 学生和班级是多对一的关系，即一个学生只属于一个班级
      */

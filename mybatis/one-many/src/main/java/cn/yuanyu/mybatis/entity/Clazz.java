@@ -24,10 +24,8 @@ public class Clazz {
      * 班级名称
      */
     private String name;
-
     /**
      * 班级和学生是一对多的关系，即一个班级可以有多个学生
      */
     private List<Student> students;
-
 }

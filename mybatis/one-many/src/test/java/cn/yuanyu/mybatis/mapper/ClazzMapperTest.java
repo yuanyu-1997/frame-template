@@ -19,5 +19,7 @@ public class ClazzMapperTest {
     @Test
     public void selectClazzById() {
         Clazz clazz = clazzMapper.selectClazzById(1);
+        System.out.println("\n\n---------------------分割线---------------------\n\n");
+        //List<Student> students = clazz.getStudents(); //这里才开始执行查询
     }
 }

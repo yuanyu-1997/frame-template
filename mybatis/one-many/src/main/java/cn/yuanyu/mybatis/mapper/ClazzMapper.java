@@ -7,8 +7,6 @@ import cn.yuanyu.mybatis.entity.Clazz;
  * @author yuanyu
  */
 public interface ClazzMapper {
-
-
     /**
      * 根据id查询班级信息
      *
@@ -16,5 +14,4 @@ public interface ClazzMapper {
      * @return 班级
      */
     Clazz selectClazzById(Integer id);
-
 }

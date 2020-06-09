@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yuanyu.mybatis.mapper.DepartmentMapper">
+
+    <!--
+        DepartmentMapper.xml
+    -->
+    <select id="getDeptById" resultType="cn.yuanyu.mybatis.entity.Department">
+        select id, dept_name dept_name
+        from t_dept
+        where id = #{id}
+    </select>
+
+
+</mapper>
