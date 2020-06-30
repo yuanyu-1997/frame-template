@@ -9,6 +9,6 @@ public class XmlTest {
     public void test(){
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:beans.xml");
         Person person = applicationContext.getBean(Person.class);
-        System.out.println(person);
+        System.out.println(person);//
     }
 }

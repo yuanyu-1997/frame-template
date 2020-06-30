@@ -1,0 +1,3 @@
+logging:
+  level:
+    cn.yuanyu.guavatoken.config: debug
