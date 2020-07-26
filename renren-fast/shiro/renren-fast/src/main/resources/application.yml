@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://39.106.196.224:6969/security_db?serverTimezone=Asia/Shanghai&useSSL=false&characterEncoding=utf8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  aop:
+    proxy-target-class: true
+server:
+  port: 6969
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

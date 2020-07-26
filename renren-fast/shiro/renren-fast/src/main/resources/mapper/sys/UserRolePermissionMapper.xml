@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yuanyu.studentapi.mapper.sys.SysUserRolePermissionMapper">
+
+    <!-- 返回用户详细信息 -->
+    <resultMap type="cn.yuanyu.studentapi.entity.sys.SysUserEntity" id="userDetailresultMap">
+        <!-- 封装用户 -->
+        <id property="id" column="userId"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <result property="status" column="status"/>
+        <!-- 封装角色 -->
+        <collection property="roles" ofType="cn.yuanyu.studentapi.entity.sys.SysRoleEntity">
+            <id property="id" column="roleId"/>
+            <result property="roleName" column="roleName"/>
+            <result property="roleDesc" column="roleDesc"/>
+            <!-- 封装权限 -->
+            <collection property="permissions" ofType="cn.yuanyu.studentapi.entity.sys.SysPermissionEntity">
+                <id property="id" column="permId"/>
+                <result property="permTag" column="permTag"/>
+                <result property="permDesc" column="permDesc"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="getUserDetailByUsername" resultMap="userDetailresultMap">
+        select u.id        userId,
+               u.salt      salt,
+               u.status    status,
+               u.username  username,
+               u.password  password,
+               r.id        roleId,
+               r.role_name roleName,
+               r.role_desc roleDesc,
+               p.id        permId,
+               p.perm_tag  permTag,
+               p.perm_desc permDesc
+        from sys_user u
+                 join sys_user_role ur on ur.user_id = u.id
+                 join sys_role r on r.id = ur.role_id
+                 join sys_role_permission rp on rp.role_id = r.id
+                 join sys_permission p on p.id = rp.perm_id
+        where username = #{username};
+    </select>
+
+    <insert id="insertUserRoleRelation">
+        insert into sys_user_role (user_id, role_id)
+        values (#{userId}, #{roleId})
+    </insert>
+
+    <insert id="insertRolePermissionRelation">
+        insert into sys_role_permission (role_id, perm_id)
+        values (#{roleId}, #{permId})
+    </insert>
+
+</mapper>

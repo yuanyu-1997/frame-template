@@ -52,6 +52,9 @@
                 }
             }
         },
+        mounted() {
+
+        },
         methods: {
             handLogin() {
                 alert('')
@@ -70,7 +73,7 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        background: url('../../../assets/img/login/1/login-bg.jpg') 100% 100% no-repeat;
+        background: url('./login-bg.jpg') 100% 100% no-repeat;
 
         .login {
             width: 700px;

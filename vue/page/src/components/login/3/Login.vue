@@ -106,12 +106,13 @@
             height: 100%;
             z-index: -1;
             content: "";
-            background-image: url(../../../assets/img/login/3/login_bg.jpg);
+            background-image: url(./login_bg.jpg);
             background-size: cover;
         }
 
         .content {
             min-height: 100%;
+            min-width: 500px;
             padding: 30px 500px 30px 30px;
 
             .info {

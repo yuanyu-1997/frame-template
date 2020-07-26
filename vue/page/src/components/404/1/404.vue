@@ -2,7 +2,7 @@
     <div class="bg">
         <div class="main">
             <div class="item img">
-                <img src="../../../assets/img/404/1/404.svg" alt="404">
+                <img src="./404.svg" alt="404">
             </div>
             <div class="item desc">
                 <div class="code">404</div>
@@ -16,7 +16,6 @@
 <script>
     // https://www.w3cplus.com/css/min-max-clamp-function.html
     // https://yuanyu.blog.csdn.net/article/details/107173337
-
     export default {
         data() {
             return {}

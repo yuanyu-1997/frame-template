@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yuanyu.studentapi.mapper.sys.SysPermissionMapper">
+    <select id="selectByPermTag" resultType="cn.yuanyu.studentapi.entity.sys.SysPermissionEntity">
+        select *
+        from sys_permission
+        where perm_tag = #{permTag}
+    </select>
+</mapper>
