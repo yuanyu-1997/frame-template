@@ -1,0 +1,5 @@
+server:
+  port: 6969
+logging:
+  level:
+    cn.yuanyu.limitflowguava: debug
