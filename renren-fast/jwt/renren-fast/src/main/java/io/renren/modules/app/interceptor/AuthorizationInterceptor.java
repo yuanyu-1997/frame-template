@@ -1,10 +1,4 @@
-/**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
- * https://www.renren.io
- *
- * 版权所有，侵权必究！
- */
+
 
 package io.renren.modules.app.interceptor;
 
@@ -34,8 +28,12 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
     public static final String USER_KEY = "userId";
 
+    /**
+     * @param handler HandlerMethod
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        // 判断该接口有没有没有@Login注解，有的需要进行token校验，没有直接放行
         Login annotation;
         if(handler instanceof HandlerMethod) {
             annotation = ((HandlerMethod) handler).getMethodAnnotation(Login.class);
@@ -58,7 +56,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         if(claims == null || jwtUtils.isTokenExpired(claims.getExpiration())){
             throw new RRException(jwtUtils.getHeader() + "失效，请重新登录", HttpStatus.UNAUTHORIZED.value());
         }
-        //设置 userId 到 request 里，后续根据userId，获取用户信息
+        //设置 userId 到 request 里，后续根据 userId，获取用户信息
         request.setAttribute(USER_KEY, Long.parseLong(claims.getSubject()));
         return true;
     }

@@ -30,6 +30,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 //.apis(RequestHandlerSelectors.basePackage("io.renren.modules.app.dao"))
                 .paths(PathSelectors.any())
                 .build()
+                //
                 .securitySchemes(security());
     }
     private ApiInfo apiInfo() {
@@ -40,6 +41,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .version("3.0.0")
                 .build();
     }
+
     private List<ApiKey> security() {
         ArrayList<ApiKey> res = new ArrayList<>();
         res.add(new ApiKey("token", "token", "header"));

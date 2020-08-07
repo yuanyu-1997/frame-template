@@ -17,6 +17,7 @@ import java.util.Set;
  * @author yuanyu
  */
 public class ValidatorUtils {
+
     private static Validator validator;
 
     static {

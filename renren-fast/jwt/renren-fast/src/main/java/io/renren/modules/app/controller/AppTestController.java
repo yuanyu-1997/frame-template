@@ -27,20 +27,20 @@ public class AppTestController {
      * token
      */
     @Login
-    @GetMapping("userInfo")
+    @GetMapping("/userInfo")
     @ApiOperation("获取用户信息")
     public R userInfo(@LoginUser UserEntity user){
         return R.ok().put("user", user);
     }
 
     @Login
-    @GetMapping("userId")
+    @GetMapping("/userId")
     @ApiOperation("获取用户ID")
     public R userInfo(@RequestAttribute("userId") Integer userId){
         return R.ok().put("userId", userId);
     }
 
-    @GetMapping("notToken")
+    @GetMapping("/notToken")
     @ApiOperation("忽略Token验证测试")
     public R notToken(){
         return R.ok().put("msg", "无需token也能访问。。。");

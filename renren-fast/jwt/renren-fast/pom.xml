@@ -9,7 +9,7 @@
 
 
     <description>
-        renren-fast
+        renren-fast jwt代码分析
     </description>
 
     <parent>
@@ -19,56 +19,46 @@
     </parent>
 
     <properties>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-
         <!-- db -->
         <mysql.version>8.0.17</mysql.version>
         <mybatisplus.version>3.3.1</mybatisplus.version>
-
         <!-- jwt -->
         <jwt.version>0.7.0</jwt.version>
-
         <!-- apache -->
         <commons.lang.version>3.10</commons.lang.version>
         <httpcore.version>4.4.13</httpcore.version>
-
         <commons.codec.version>1.10</commons.codec.version>
+        <!-- other -->
         <swagger.version>2.7.0</swagger.version>
         <commons.lang.version>3.11</commons.lang.version>
     </properties>
 
     <dependencies>
-
         <!-- jwt -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>${jwt.version}</version>
         </dependency>
-
         <!-- boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-
         <!-- db -->
-
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -80,13 +70,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
-
         <!-- apache -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -98,14 +86,12 @@
             <artifactId>httpcore</artifactId>
             <version>${httpcore.version}</version>
         </dependency>
-
-
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>${commons.codec.version}</version>
         </dependency>
-
+        <!-- other -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -116,12 +102,9 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-
     </dependencies>
-
 </project>

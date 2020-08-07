@@ -35,6 +35,8 @@ public class JwtUtils {
 
     /**
      * 生成jwt token
+     * @param userId 用户主键，后面会从生成jwt里面取出这个值，用于标识当前用户
+     * @return jwt
      */
     public String generateToken(long userId) {
         Date nowDate = new Date();
