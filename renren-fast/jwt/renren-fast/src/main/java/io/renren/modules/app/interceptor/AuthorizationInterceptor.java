@@ -35,6 +35,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         // 判断该接口有没有没有@Login注解，有的需要进行token校验，没有直接放行
         Login annotation;
+        // 方法上有 @Login 注解，才会判断token
         if(handler instanceof HandlerMethod) {
             annotation = ((HandlerMethod) handler).getMethodAnnotation(Login.class);
         }else{
