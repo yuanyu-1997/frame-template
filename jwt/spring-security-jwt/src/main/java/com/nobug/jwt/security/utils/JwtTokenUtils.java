@@ -24,7 +24,7 @@ public class JwtTokenUtils {
 
     private static final SecretKey secretKey = Keys.hmacShaKeyFor(apiKeySecretBytes);
 
-    public static String createToken(String username, List<String> roles, boolean isRememberMe) {
+    public static String createToken(String username, boolean isRememberMe) {
         long expiration = isRememberMe ? JwtConfig.EXPIRATION_REMEMBER : JwtConfig.EXPIRATION;
         final Date createdDate = new Date();
         final Date expirationDate = new Date(createdDate.getTime() + expiration);
