@@ -7,8 +7,8 @@ import org.springframework.core.annotation.Order;
 /**
  * jwt相关配置常量
  */
-@Order(Integer.MIN_VALUE)
 @Configuration
+@Order(Integer.MIN_VALUE) // 先执行
 public class JwtConfig {
     /**
      * 登录的地址

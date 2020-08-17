@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yuanyu.uaa.mapper.AuthAccessTokenMapper">
+
+    <resultMap id="BaseResultMap" type="cn.yuanyu.uaa.model.AuthAccessToken">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="access_token" jdbcType="VARCHAR" property="accessToken"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="client_id" jdbcType="INTEGER" property="clientId"/>
+        <result column="expires_in" jdbcType="BIGINT" property="expiresIn"/>
+        <result column="grant_type" jdbcType="VARCHAR" property="grantType"/>
+        <result column="scope" jdbcType="VARCHAR" property="scope"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, access_token, user_id, user_name, client_id, expires_in, grant_type, scope, create_user,create_time, update_user, update_time
+    </sql>
+
+    <select id="selectByUserIdClientIdScope" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from auth_access_token
+        where user_id = #{userId}
+        AND client_id = #{clientId}
+        AND scope = #{scope}
+    </select>
+
+    <select id="selectByAccessToken" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from auth_access_token
+        where access_token = #{accessToken}
+    </select>
+
+</mapper>

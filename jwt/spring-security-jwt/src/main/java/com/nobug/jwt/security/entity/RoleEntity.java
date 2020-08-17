@@ -50,15 +50,11 @@ public class RoleEntity {
      */
     @LastModifiedDate
     private Date updateTime;
-
-
     /**
      *
      */
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<UserEntity> users = new HashSet<>();
-
-
     /**
      * 配置角色到权限的多对多关系
      */

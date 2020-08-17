@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yuanyu.uaa.mapper.AuthClientDetailsMapper">
+
+    <resultMap id="BaseResultMap" type="cn.yuanyu.uaa.model.AuthClientDetails">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="client_id" jdbcType="VARCHAR" property="clientId"/>
+        <result column="client_name" jdbcType="VARCHAR" property="clientName"/>
+        <result column="client_secret" jdbcType="VARCHAR" property="clientSecret"/>
+        <result column="redirect_uri" jdbcType="VARCHAR" property="redirectUri"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, client_id, client_name, client_secret, redirect_uri, description, create_user, create_time, update_user, update_time, status
+    </sql>
+    <select id="selectByClientId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from auth_client_details
+        where client_id = #{clientId}
+    </select>
+</mapper>

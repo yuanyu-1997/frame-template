@@ -24,6 +24,4 @@ public class ResourcesController {
         return "访问资源2";
     }
 
-
-
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yuanyu.uaa.mapper.AuthScopeMapper">
+
+    <resultMap id="BaseResultMap" type="cn.yuanyu.uaa.model.AuthScope">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="scope_name" jdbcType="VARCHAR" property="scopeName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, scope_name, description
+    </sql>
+
+    <select id="selectByScopeName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from auth_scope
+        where scope_name = #{scopeName}
+    </select>
+</mapper>
