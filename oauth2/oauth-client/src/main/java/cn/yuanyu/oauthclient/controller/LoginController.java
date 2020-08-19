@@ -50,16 +50,17 @@ public class LoginController {
      */
     // http://localhost:2500/xxx-client/login
     @RequestMapping("/login")
-    public ModelAndView login(@RequestParam(value = "redirect_uri", required = false) String redirectUrl,
+    public ModelAndView login(@RequestParam(value = "redirect", required = false) String redirectUrl,
                               @RequestParam(value = "code", required = false) String code, HttpServletRequest request) {
         // 最后重定向的URL
         String resultUrl = "redirect:";
         HttpSession session = request.getSession();
-        // 当前请求路径
-        String currentUrl = request.getRequestURL().toString();
+
+        // TODO
+        String redirectUri = "http://127.0.0.1:2500/xxx-client/login";
 
         // code为空，则说明当前请求不是认证服务器的回调请求，则重定向URL到认证服务器登录
-        if(!StringUtils.isBlank(redirectUrl) && StringUtils.isBlank(code)){
+        if(!StringUtils.isBlank(redirectUrl)){
             // 如果存在回调URL，则将这个URL添加到session
             if (StringUtils.isNoneBlank(redirectUrl)) {
                 session.setAttribute(Constants.SESSION_LOGIN_REDIRECT_URL, redirectUrl);
@@ -68,16 +69,11 @@ public class LoginController {
             String status = EncryptUtils.getRandomStr1(6);
             session.setAttribute(Constants.SESSION_AUTH_CODE_STATUS, status);
             // 拼装请求 Authorization Code 的地址
-            resultUrl += MessageFormat.format(authorizationUri, clientId, status, currentUrl);
+            resultUrl += MessageFormat.format(authorizationUri, clientId, status, redirectUri);
         }
-        // 用户确认授权了
-        else if(StringUtils.isBlank(redirectUrl) && StringUtils.isBlank(code)){
-            log.info("用户确认授权了...");
-        }
-        //
-        else if(!StringUtils.isBlank(code)){
+        else {
             // 2.通过 Authorization Code 获取 Access Token
-            AuthorizationResponse response = new RestTemplate().getForObject(accessTokenUri, AuthorizationResponse.class, clientId, clientSecret, code, currentUrl);
+            AuthorizationResponse response = new RestTemplate().getForObject(accessTokenUri, AuthorizationResponse.class, clientId, clientSecret, code, redirectUri);
             //如果正常返回
             if (response != null && StringUtils.isNoneBlank(response.getAccess_token())) {
                 System.out.println(response);

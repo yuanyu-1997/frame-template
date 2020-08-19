@@ -1,0 +1,7 @@
+server:
+  servlet:
+    context-path: /heihei
+  port: 5000
+spring:
+  thymeleaf:
+    cache: false

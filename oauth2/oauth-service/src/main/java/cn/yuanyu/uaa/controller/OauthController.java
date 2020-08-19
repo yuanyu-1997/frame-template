@@ -68,7 +68,8 @@ public class OauthController {
      */
     // http://127.0.0.1:8000/uaa/oauth2/authorizePage
     @RequestMapping("/authorizePage")
-    public ModelAndView authorizePage(@RequestParam("response_type") String responseType,
+    public ModelAndView authorizePage(
+                                      //@RequestParam("response_type") String responseType,
                                       @RequestParam("client_id") String clientId,
                                       @RequestParam("redirect_uri") String redirectUrl,
                                       @RequestParam("scope") String scope, HttpSession session) {
@@ -113,6 +114,14 @@ public class OauthController {
                     result.put("redirect_uri", redirectUrl);
                 }
                 log.info("授权成功之后的回调地址 => {}", redirectUrl);
+
+
+
+
+
+
+
+
             } else {
                 log.info("授权失败");
                 result.put("msg", "授权失败！");
@@ -124,6 +133,7 @@ public class OauthController {
         return result;
     }
 
+    //
     /**
      * 获取 Authorization Code
      *

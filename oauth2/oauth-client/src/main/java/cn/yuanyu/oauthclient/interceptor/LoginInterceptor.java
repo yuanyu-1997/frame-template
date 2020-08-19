@@ -30,7 +30,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             return true;
         } else {
             //如果token不存在，则跳转等登录页面
-            String redirectUrl = request.getContextPath() + "/login?redirect_uri=" + SpringContextUtils.getRequestUrl(request);
+            String redirectUrl = request.getContextPath() + "/login?redirect=" + SpringContextUtils.getRequestUrl(request);
             log.info("重定向地址 => {}", URLDecoder.decode(redirectUrl, "UTF-8"));
             response.sendRedirect(redirectUrl);
             return false;
