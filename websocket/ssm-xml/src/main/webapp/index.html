@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    let websocket = null;
+    if ('WebSocket' in window) {
+        websocket = new WebSocket("ws://127.0.0.1:8084/websck");
+    } else {
+        throw new Error("Not support websocket");
+    }
+    if (websocket) {
+        /**
+         * 连接成功建立的回调方法
+         * @param event
+         */
+        websocket.onopen = function (event) {
+            console.log("和服务端成功建立连接...")
+        }
+        /**
+         * 接收到消息的回调方法
+         * @param event
+         */
+        websocket.onmessage = function (event) {
+            console.log("接收到服务端消息 => " + event.data)
+        }
+        /**
+         * 连接关闭的回调方法
+         */
+        websocket.onclose = function () {
+            console.log("连接关闭...")
+        }
+
+        /**
+         * 连接发生错误的回调方法
+         */
+        websocket.onerror = function () {
+            console.log("连接发生错误...")
+        };
+
+        /**
+         * 监听窗口关闭事件
+         */
+        window.onbeforeunload = function () {
+            websocket.close();
+        }
+    }
+</script>
+
+
+</body>
+</html>
