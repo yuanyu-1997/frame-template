@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
+/**
+ * spring mvc 配置文件
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "cn.yuanyu.websocket.controller"

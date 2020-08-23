@@ -6,43 +6,75 @@
 package com.yuanyu.webSocket.hndler;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.WebSocketMessage;
-import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.*;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class SystemWebSocketHandler implements WebSocketHandler {
+    // 在线用户列表
+    private static final Map<String, WebSocketSession> users = new HashMap<>();
+    // 用户标识
+    private static final String USER_KEY = "username";
 
-    @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println("connect to the websocket success......");
-        session.sendMessage(new TextMessage("Server:connected OK!"));
-    }
 
+    /**
+     * 连接就绪时
+     */
     @Override
-    public void handleMessage(WebSocketSession wss, WebSocketMessage<?> wsm) throws Exception {
-        TextMessage returnMessage = new TextMessage(wsm.getPayload() + " received at server");
-		wss.sendMessage(returnMessage);
-    }
-
-    @Override
-    public void handleTransportError(WebSocketSession wss, Throwable thrwbl) throws Exception {
-        if(wss.isOpen()){
-            wss.close();
+    public void afterConnectionEstablished(WebSocketSession session) throws IOException {
+        System.out.println("连接就绪...");
+        String username = getClientId(session);
+        if (username != null) {
+            System.out.println("username => " + username);
+            users.put(username, session);
+            session.sendMessage(new TextMessage("成功建立socket连接（来自服务端的消息）"));
         }
-       System.out.println("websocket connection closed......");
     }
 
+    /**
+     * 处理客户端信息
+     */
     @Override
-    public void afterConnectionClosed(WebSocketSession wss, CloseStatus cs) throws Exception {
-        System.out.println("websocket connection closed......");
+    public void handleMessage(WebSocketSession wss, WebSocketMessage<?> wsm) {
+        System.out.println("处理客户端信息...");
     }
 
+    /**
+     * 处理传输时异常
+     */
+    @Override
+    public void handleTransportError(WebSocketSession wss, Throwable thrwbl) {
+        System.out.println("处理传输时异常...");
+    }
+
+    /**
+     * 关闭连接时
+     */
+    @Override
+    public void afterConnectionClosed(WebSocketSession wss, CloseStatus cs) {
+        System.out.println("关闭连接时...");
+    }
+
+    /**
+     * 是否支持分包
+     */
     @Override
     public boolean supportsPartialMessages() {
         return false;
     }
-    
+
+
+    /**
+     * 获取用户标识
+     */
+    private String getClientId(WebSocketSession session) {
+        try {
+            return (String) session.getAttributes().get(USER_KEY);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

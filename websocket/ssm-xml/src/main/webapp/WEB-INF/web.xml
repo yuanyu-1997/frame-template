@@ -50,6 +50,8 @@
             30
         </session-timeout>
     </session-config>
+
+
     <welcome-file-list>
         <welcome-file>testSocket.jsp</welcome-file>
     </welcome-file-list>

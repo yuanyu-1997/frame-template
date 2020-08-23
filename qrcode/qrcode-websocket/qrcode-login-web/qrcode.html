@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>qrcode.js</title>
+</head>
+<body>
+
+<div id="qrcode"></div>
+<p>six</p>
+<script type="text/javascript">
+
+    // https://www.runoob.com/w3cnote/javascript-qrcodejs-library.html
+    // https://www.cnblogs.com/huanghuali/p/10334576.html
+    window.onload =function(){
+        // 生成二维码
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width : 210,//设置宽高
+            height : 210
+        });
+        qrcode.makeCode("http://www.baidu.com");
+    }
+
+
+
+
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/qrcodejs/1.0.0/qrcode.js"></script>
+</body>
+</html>

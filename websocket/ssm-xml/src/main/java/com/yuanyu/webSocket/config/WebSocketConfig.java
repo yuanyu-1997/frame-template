@@ -13,13 +13,14 @@ import org.springframework.context.annotation.Bean;
 
 @Configuration
 @EnableWebMvc
-@EnableWebSocket
+@EnableWebSocket  //
 public class WebSocketConfig implements WebSocketConfigurer{
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(systemWebSocketHandler(), "/websck").addInterceptors(new HandshakeInterceptor());
-        registry.addHandler(systemWebSocketHandler(), "/sockjs/websck/info").addInterceptors(new HandshakeInterceptor()).withSockJS();
+        registry.addHandler(systemWebSocketHandler(), "/websocket")
+                .addInterceptors(new HandshakeInterceptor())
+                .setAllowedOrigins("*");
     }
 
     @Bean

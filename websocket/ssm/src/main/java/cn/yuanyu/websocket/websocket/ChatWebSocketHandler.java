@@ -1,6 +1,7 @@
 package cn.yuanyu.websocket.websocket;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -16,34 +17,35 @@ import java.util.Set;
 // https://blog.csdn.net/HOMERUNIT/article/details/80861096
 // https://www.cnblogs.com/nosqlcoco/p/5860730.html
 // var websocket = new WebSocket("ws://127.0.0.1:2000/websocket");
+
 /**
  *
  */
+@Slf4j
 @Service
 public class ChatWebSocketHandler extends TextWebSocketHandler {
     // 在线用户列表
     private static final Map<String, WebSocketSession> users = new HashMap<>();
     // 用户标识
-    private static final String CLIENT_ID = "username";
+    private static final String USER_KEY = "username";
 
     /**
      * 当新连接建立的时候，被调用（连接成功时候，会触发页面上onOpen方法 ）
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println("成功建立连接");
+        log.info("服务端成功建立连接...");
         String username = getClientId(session);
-        System.out.println("username => " + username);
+        log.info("username => {}", username);
         if (username != null) {
             users.put(username, session);
             session.sendMessage(new TextMessage("成功建立socket连接"));
-            System.out.println(username);
-            System.out.println(session);
         }
     }
 
     /**
      * 处理前端发送的文本信息（js调用 websocket.send 时候，会调用该方法 ）
+     *
      * @param message 文本信息
      */
     @Override
@@ -62,7 +64,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
      */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-        System.out.println("连接已关闭：" + status);
+        log.info("连接已关闭 => {}", status);
         users.remove(getClientId(session));
     }
 
@@ -74,7 +76,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         if (session.isOpen()) {
             session.close();
         }
-        System.out.println("连接出错");
+        log.info("连接出错...");
         users.remove(getClientId(session));
     }
 
@@ -102,6 +104,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         }
         return true;
     }
+
     /**
      * 广播信息
      */
@@ -113,7 +116,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             try {
                 session = users.get(clientId);
                 if (session.isOpen()) {
-                    session.sendMessage(message);
+                    session.sendMessage(new TextMessage("（" +clientId + "）" + message));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -128,7 +131,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
      */
     private String getClientId(WebSocketSession session) {
         try {
-            return (String) session.getAttributes().get(CLIENT_ID);
+            return (String) session.getAttributes().get(USER_KEY);
         } catch (Exception e) {
             return null;
         }

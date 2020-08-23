@@ -6,6 +6,8 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
 
 /**
+ * spring 配置文件
+ *
  * @author yuanyu
  */
 @Configuration

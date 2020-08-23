@@ -5,12 +5,29 @@
     <title>WebSocket</title>
 </head>
 <body>
-
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.js"></script>
 <script type="text/javascript">
 
+    const idx = layer.load();
+    $.ajax({
+        type: 'post',
+        url:  `http://localhost:3000/login/张三`,
+        timeout: 5000,
+        async: false, // 默认是异步的
+        dataType: 'text',
+        success: function (data) {
+            layer.close(idx);
+            console.log('登陆成功 => '+ data)
+        },
+        error: function (msg) {
+            layer.close(idx);
+            console.log('msg => '+ JSON.stringify(msg, null, 2));
+        }
+    });
     let websocket = null;
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://127.0.0.1:2000/websocket/chat");
+        websocket = new WebSocket("ws://localhost:3000/websocket/chat");
     } else {
         throw new Error("Not support websocket");
     }
@@ -49,10 +66,10 @@
         window.onbeforeunload = function () {
             websocket.close();
         }
-
         // websocket.send('你好我是客户端');
-
     }
+
+
 </script>
 
 

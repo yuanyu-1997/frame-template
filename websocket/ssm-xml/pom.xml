@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.yuanyu</groupId>
-    <artifactId>ssm-xml</artifactId>
+    <artifactId>websocket-ssm-xml</artifactId>
     <version>1.0.0.RELEASE</version>
     <packaging>war</packaging>
 
@@ -14,13 +14,6 @@
     </properties>
 
     <dependencies>
-
-        <!--<dependency>-->
-        <!--    <groupId>javax.websocket</groupId>-->
-        <!--    <artifactId>javax.websocket-api</artifactId>-->
-        <!--    <version>1.0</version>-->
-        <!--    <scope>provided</scope>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework</groupId>

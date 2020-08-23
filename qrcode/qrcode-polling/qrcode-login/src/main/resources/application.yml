@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: qrcode
+  redis:
+    port: 6300
+    host: 121.36.33.154
+server:
+  port: 30000
+  servlet:
+    context-path: /heihei
+qrcode:
+  login-url: http://localhost:30000/heihei/qrcode/login
+  width: 140
+  height: 140
+  format: png
+
+ali:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    accessKeyId: LTAI4GFwjiWjDP2yDnySdozr
+    accessKeySecret: 4ZS1z5oYoHAWpx5myF9P0XI0Sxj9b3
+    bucketName: yuanyu-qrcode
+    baseUrl: https://yuanyu-qrcode.oss-cn-beijing.aliyuncs.com/
