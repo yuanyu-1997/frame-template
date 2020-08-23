@@ -19,16 +19,14 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     // 用户标识
     private static final String USER_KEY = "username";
 
-
     /**
      * 连接就绪时
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws IOException {
-        System.out.println("连接就绪...");
         String username = getClientId(session);
+        System.out.println("连接就绪 username => " + username);
         if (username != null) {
-            System.out.println("username => " + username);
             users.put(username, session);
             session.sendMessage(new TextMessage("成功建立socket连接（来自服务端的消息）"));
         }
@@ -38,8 +36,9 @@ public class SystemWebSocketHandler implements WebSocketHandler {
      * 处理客户端信息
      */
     @Override
-    public void handleMessage(WebSocketSession wss, WebSocketMessage<?> wsm) {
-        System.out.println("处理客户端信息...");
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> wsm) {
+        String username = getClientId(session);
+        System.out.println("来消息了 => " + username);
     }
 
     /**
