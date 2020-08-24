@@ -1,9 +1,9 @@
 package cn.yuanyu.qrcode.websocket;
 
 
-import cn.yuanyu.qrcode.service.ParameterNewTool;
 import cn.yuanyu.qrcode.util.R;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -34,7 +34,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String clientip = (String) session.getAttributes().get("clientip");
         log.info("clientip: " + clientip + " webSocket连接成功! sessionid:" + sessionid);
 
-        if (sessionid !=null) {
+        if (sessionid != null) {
             sessions.put(sessionid, session);
         }
     }
@@ -50,7 +50,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         log.info("收到clientip: " + clientip + "的消息:" + message.toString() + " sessionid:" + sessionid);
         // 回复一条信息，
         log.info("消息内容：" + message.getPayload());
-        Map<String,String> acceptMap = ParameterNewTool.json2Map(message.getPayload());
+        Map<String, String> acceptMap = JSON.parseObject(message.getPayload(), new TypeReference<HashMap<String, String>>() {});
         int msgtype = Integer.parseInt(acceptMap.get("msgtype"));
         // 二维码过期
         if (msgtype == 1) {

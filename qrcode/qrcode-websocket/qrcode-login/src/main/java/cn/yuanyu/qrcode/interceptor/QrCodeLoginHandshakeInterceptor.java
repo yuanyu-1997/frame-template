@@ -20,7 +20,7 @@ public class QrCodeLoginHandshakeInterceptor implements HandshakeInterceptor {
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             HttpSession httpSession = servletRequest.getServletRequest().getSession(false);
             if (httpSession != null) {
-                // 使用 sessionid 区分WebSocketHandler，以便定向发送消息
+                // 使用 sessionid 区分 WebSocketHandler，以便定向发送消息（获取二维码的时候存的）
                 String sessionid = (String) httpSession.getAttribute("sessionid");
                 String clientip = (String) httpSession.getAttribute("clientip");
                 if (sessionid == null) {
@@ -33,7 +33,6 @@ public class QrCodeLoginHandshakeInterceptor implements HandshakeInterceptor {
                 attributes.put("clientip", clientip);
             }
         }
-
         return true;
     }
 

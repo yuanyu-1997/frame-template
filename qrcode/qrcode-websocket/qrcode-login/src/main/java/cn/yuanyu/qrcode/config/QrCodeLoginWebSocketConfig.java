@@ -31,10 +31,10 @@ public class QrCodeLoginWebSocketConfig implements WebSocketConfigurer {
         //WebSocket connection to 'ws://127.0.0.1:30000/heihei/websocket/socketServer.do' failed: Error during WebSocket handshake: Unexpected response code: 403
 
         // 2.注册SockJS，提供SockJS支持（主要是兼容ie8）
-        String sockjs_url = "/sockjs/socketServer.do";                       // 设置sockjs的地址
-        registry.addHandler(webSocketHandler, sockjs_url).                   // 注册Handler
-                addInterceptors(interceptor)                                 // 注册Interceptor
-                .withSockJS();                                               // 支持sockjs协议
+        String sockjs_url = "/sockjs/socketServer.do";                   // 设置sockjs的地址
+        registry.addHandler(webSocketHandler, sockjs_url).               // 注册Handler
+                addInterceptors(interceptor)                             // 注册Interceptor
+                .withSockJS();                                           // 支持sockjs协议
     }
 
 }  
