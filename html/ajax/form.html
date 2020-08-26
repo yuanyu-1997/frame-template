@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax from</title>
+</head>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+
+<!--  -->
+<form id="loginform" action="" method="post" style="margin:0;display:inline">
+    <input type='hidden' id='username' name='username' value='' />
+    <input type='hidden' id='age' name='age' value='' />
+</form>
+
+<script>
+    function lgoin(username, age) {
+        $("#loginform").attr("action", "http://localhost:3000/heihei/login");
+        $("#username").val(username);
+        $("#age").val(age);
+        $("#loginform").submit();
+    }
+    // 后端对应Controller
+    //@Slf4j
+    //@Controller
+    //@RequestMapping("/heihei")
+    //public class AjaxFormController {
+    //    @PostMapping("/login")
+    //    public ModelAndView ajax(String username, String age){
+    //        log.info("username => {}", username);
+    //        log.info("age => {}", age);
+    //        return new ModelAndView("index");
+    //    }
+    //}
+
+    // lgoin('张三', 18);
+
+</script>
+
+
+<body>
+
+</body>
+
+</html>
