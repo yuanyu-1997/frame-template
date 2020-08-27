@@ -18,7 +18,7 @@ public class SocketController {
     @Autowired
     private ChatWebSocketHandler handler;
 
-    // http://localhost:3000/login/张三
+    // http://localhost:3000/heihei/login/张三
     @ResponseBody
     @PostMapping("/login/{username}")
     public String login(@PathVariable("username") String username, HttpSession session) {
@@ -31,7 +31,7 @@ public class SocketController {
     /**
      * 推送消息
      */
-    // http://localhost:2000/message?msg=你好
+    // http://localhost:3000/heihei/message?msg=你好
     @RequestMapping("/message")
     @ResponseBody
     public String sendMessage(@RequestParam String msg) {

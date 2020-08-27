@@ -17,7 +17,7 @@ public class SocketController {
     @Autowired
     private SystemWebSocketHandler systemWebSocketHandler;
 
-    // http://localhost:8084/login/张三.do
+    // http://localhost:8084/login/张三
     @ResponseBody
     @PostMapping("/login/{username}")
     public String login(@PathVariable("username") String username, HttpSession session) {
