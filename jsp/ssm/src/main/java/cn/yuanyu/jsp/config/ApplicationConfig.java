@@ -1,4 +1,4 @@
-package cn.yuanyu.ssm.config;
+package cn.yuanyu.jsp.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -6,13 +6,14 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
 
 /**
+ * spring配置文件
+ *
  * @author yuanyu
  */
-@Configuration //相当于applicationContext.xml
-@ComponentScan(basePackages = "cn.yuanyu.ssm"
+@Configuration
+@ComponentScan(basePackages = "cn.yuanyu"
         , excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class)})
 public class ApplicationConfig {
-    //在此配置除了Controller的其它bean（数据库链接池、事务管理器、业务bean等）
 
 
 }

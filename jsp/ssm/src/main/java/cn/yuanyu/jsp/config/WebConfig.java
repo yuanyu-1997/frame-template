@@ -1,4 +1,4 @@
-package cn.yuanyu.ssm.config;
+package cn.yuanyu.jsp.config;
 
 
 import org.springframework.context.annotation.Bean;
@@ -12,26 +12,24 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
+ * spring mvc 配置文件
+ *
  * @author yuanyu
  */
-@Configuration //就相当于springmvc.xml文件
+@Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "cn.yuanyu.ssm.controller"
+@ComponentScan(basePackages = "cn.yuanyu.jsp.controller"
         , includeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class)}
         , useDefaultFilters = false)
 public class WebConfig implements WebMvcConfigurer {
 
-    /**
-     * 视图解析器
-     */
+
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/WEB-INF/views/");
         resolver.setSuffix(".jsp");
+
         return resolver;
     }
-
-
-
 }
