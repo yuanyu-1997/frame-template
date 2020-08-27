@@ -10,9 +10,8 @@ let qrCodeTimeOut = false;
 let sessionid;
 // 和服务端通信的websocket
 let websocket;
-
-
-
+// 二维码过期时间
+const qrCodeExpireTime = 200000;
 $(function () {
     // 用户输入错误提示
     const inputs = document.getElementsByTagName('input');
@@ -130,9 +129,8 @@ function qrCodeLogin() {
                 // 会话标识（后面请求需要带上）
                 sessionid = data.sessionid;
                 $("#qrcodeId").val(data.sessionid);
-
                 connectWebSocket();
-                timer = window.setTimeout(qrCodeTimeOutNotify, 500000);
+                timer = window.setTimeout(qrCodeTimeOutNotify, qrCodeExpireTime);
             }
         },
         error: function (msg) {
@@ -142,7 +140,7 @@ function qrCodeLogin() {
     });
 }
 
-//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------//
 
 
 /**
@@ -178,7 +176,7 @@ function onOpen(openEvt) {
  */
 function onMessage(evt) {
     const data = $.parseJSON(evt.data);
-    console.log('服务器来消息拉 => ', JSON.stringify(data, null, 2));
+    console.log('收到服务器消息 => ', JSON.stringify(data, null, 2));
     if (data.code === '2000') {
         // 1 二维码过期  2 二维码被扫描  3登录成功
         switch (data.msgtype) {
@@ -192,7 +190,6 @@ function onMessage(evt) {
             }
             case 3: {   // 登录成功
                 layer.msg('登录成功', { icon: 1 });
-
                 break;
             }
         }
@@ -226,30 +223,53 @@ function qrCodeTimeOutNotify() {
 }
 
 
+
+//  这里是app解析二维码去执行的，我这里手动模拟 //
 /**
- * 模拟扫描登陆（这里是app解析二维码去执行的，我这里手动模拟）
+ * 二维码被扫描，用户未确认登录
  * @param username 用户名
  */
-window.scanCode = function (username) {
+window.scan = function (username) {
     $.ajax({
         type: 'post',
         url: code.loginurl,
         timeout: 5000,
         dataType: 'json',
         data: {
-            "type": 2, // 二维码被扫描
+            "type": 1, // 二维码被扫描
             "username": username,
             "code": code.sessionid,
             "state": code.sessionid
         },
         success: function (data) {
-            console.log('->', data);
             if (data.code === '2000') {
                 console.log("res => " + JSON.stringify(data, null, 2));
             }
         }
     });
 }
-// scanCode('yuanyu');
-
-
+/**
+ * 用户确认登录
+ * @param username 用户名
+ */
+window.confirm = function (username) {
+    $.ajax({
+        type: 'post',
+        url: code.loginurl,
+        timeout: 5000,
+        dataType: 'json',
+        data: {
+            "type": 2, // 用户确认登录
+            "username": username,
+            "code": code.sessionid,
+            "state": code.sessionid
+        },
+        success: function (data) {
+            if (data.code === '2000') {
+                console.log("res => " + JSON.stringify(data, null, 2));
+            }
+        }
+    });
+}
+// scan('yuanyu');
+// confirm('yuanyu');

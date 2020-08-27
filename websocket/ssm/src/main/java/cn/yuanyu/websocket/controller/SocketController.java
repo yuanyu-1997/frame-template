@@ -22,8 +22,7 @@ public class SocketController {
     @ResponseBody
     @PostMapping("/login/{username}")
     public String login(@PathVariable("username") String username, HttpSession session) {
-        System.out.println(session + " => " + session.getId());
-        System.out.println();
+        System.out.println("Controller => " + session + " : " + session.getId());
         System.out.println("登录接口 => " + username);
         session.setAttribute("username", username);
         return "ok";

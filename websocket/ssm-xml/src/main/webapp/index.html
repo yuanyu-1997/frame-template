@@ -8,7 +8,8 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.js"></script>
 <script type="text/javascript">
-    let websocket = null;
+
+    let websocket;
 
     function login() {
         const idx = layer.load();
@@ -27,13 +28,9 @@
                 console.log('err => ' + JSON.stringify(msg, null, 2));
             }
         });
-
     }
 
-
     function conn() {
-
-
         if ('WebSocket' in window) {
             websocket = new WebSocket("ws://localhost:8084/websocket");
         } else {
@@ -46,6 +43,7 @@
              */
             websocket.onopen = function (event) {
                 console.log("和服务端成功建立连接...")
+                layer.msg('和服务器成功建立连接', {icon: 1});
             }
             /**
              * 接收到消息的回调方法
@@ -77,10 +75,9 @@
 
     login();
     conn();
-
+    // websocket.send('hello');
 
 </script>
-
 
 </body>
 </html>

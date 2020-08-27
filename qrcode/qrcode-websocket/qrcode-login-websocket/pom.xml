@@ -21,7 +21,6 @@
         <commons.lang.version>3.10</commons.lang.version>
         <!-- fastjson -->
         <fastjson.version>1.2.73</fastjson.version>
-        <jackson.version>2.11.2</jackson.version>
     </properties>
 
     <dependencies>
@@ -32,7 +31,7 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!-- qrcode -->
+        <!-- websocket -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
@@ -50,30 +49,17 @@
             <version>${commons.lang.version}</version>
         </dependency>
 
-
+        <!-- json -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
 
-        <!-- jackson -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
 
+        <!--
+            TODO 日志没弄好
+        -->
         <!-- 日志 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -91,19 +77,6 @@
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
             <scope>test</scope>
-        </dependency>
-
-
-
-
-
-
-        <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
-        <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <classifier>jdk15</classifier>
-            <version>2.4</version>
         </dependency>
 
 

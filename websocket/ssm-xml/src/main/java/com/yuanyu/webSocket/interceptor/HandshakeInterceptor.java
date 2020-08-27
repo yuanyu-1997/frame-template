@@ -24,12 +24,12 @@ public class HandshakeInterceptor extends HttpSessionHandshakeInterceptor {
      */
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) {
-        System.out.println("HandshakeInterceptor.beforeHandshake()...");
+        System.out.println("beforeHandshake....");
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             HttpSession session = servletRequest.getServletRequest().getSession(false);
             if (session != null) {
-                System.out.println(session + " => " + session.getId());
+                System.out.println("Interceptor中 => " + session + " : " + session.getId());
                 attributes.put("username", session.getAttribute("username"));
             }
         }

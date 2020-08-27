@@ -45,38 +45,36 @@ public class QrCodeLoginController {
         String state = StringAssistor.randomString(6);
         String clientIp = IPUtils.getClientIP(request);
         HttpSession session = request.getSession();
-        // TODO
+
+        // TODO 这里往session里面存入了数据
         session.setAttribute("sessionid", state);
         session.setAttribute("clientip", clientIp);
-        // TODO 登陆地址
-        // String loginurl = "http://127.0.0.1:30000/heihei/qrcodelogin/callback.do" + "?state=" + state + "&act=" + "UniSSO-service";
-        //return R.ok()
-        //        .put("loginurl", loginurl)
-        //        .put("sessionid", state);
-
-        String loginurl = "http://127.0.0.1:30000/heihei/qrcodelogin/callback.do";
+        // TODO 二维码内容
+        String loginurl = "http://127.0.0.1:30000/heihei/qrcodelogin/callback.do" + "?state=" + state + "&act=" + "UniSSO-service";
         return R.ok()
                 .put("loginurl", loginurl)
-                .put("sessionid", state)
-                .put("state", state);
+                .put("sessionid", state);
     }
 
     /**
      * 2.二维码扫描回调（手机会解析二维码并请求这个地址）
      */
     // 手机app解析二维码，回调这个地址
+
+    /**
+     * @param type     1 二维码过期  2 二维码被扫描  3 登录成功
+     * @param username 用户唯一标识（用户已经在app登陆，由app获取）
+     * @param code
+     * @param state    二维码唯一标识（来自二维码的回传）
+     */
     @ResponseBody
     @PostMapping(value = "/callback.do")
     public R callback(HttpServletRequest request) {
         Map<String, String> params = ModelAndViewUtil.fetchParameterMap(request);
         log.info("二维码扫描回调 => " + params);
-        // 1 二维码过期  2 二维码被扫描  3登录成功
         String type = params.get("type");
-        // 用户名（用户已经在app登陆）
         String username = params.get("username");
-        // 二维码
         String authCode = params.get("code");
-        //
         String sessionid = params.get("state");
 
         boolean success = false;
@@ -118,34 +116,6 @@ public class QrCodeLoginController {
         return success ? R.ok() : R.error();
     }
 
-    /**
-     * 确认登录，api调用
-     */
-    @ResponseBody
-    @RequestMapping("/loginsuccess.do")
-    public Object loginsuccess(HttpServletRequest request) {
-        String username = request.getParameter("username");
-        String sessionid = request.getParameter("uuid");
-        String tokenid = request.getParameter("tokenid");
-        log.info("确认登录api调用,username:" + username + " sessionid:" + sessionid);
-        boolean success = false;
-        if (StringUtils.isNotBlank(username) || StringUtils.isNotBlank(sessionid) || StringUtils.isNotBlank(tokenid)) {
-            // 登录成功
-            R res = R.ok()
-                    .put("msgtype", 3)
-                    .put("username", username)
-                    .put("sessionid", sessionid)
-                    .put("tokenid", tokenid);
-            if (webSocketHandler.sendMessageToUser(sessionid, new TextMessage(JSON.toJSONString(res)))) {
-                LOGIN_SUCCESS_USERS.put(username, sessionid);
-                log.info("用户：" + username + "登录成功!sessionid=" + sessionid);
-                success = true;
-            }
-
-        }
-        return success ? R.ok() : R.error();
-    }
-
 
     /**
      * 二维码已扫描，api调用
@@ -170,6 +140,35 @@ public class QrCodeLoginController {
         return success ? R.ok() : R.error();
     }
 
+    /**
+     * 确认登录，api调用
+     */
+    @ResponseBody
+    @RequestMapping("/loginsuccess.do")
+    public Object loginsuccess(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        String sessionid = request.getParameter("uuid");
+        String tokenid = request.getParameter("tokenid");
+        log.info("确认登录api调用,username:" + username + " sessionid:" + sessionid);
+        boolean success = false;
+        if (StringUtils.isNotBlank(username) || StringUtils.isNotBlank(sessionid) || StringUtils.isNotBlank(tokenid)) {
+            // 登录成功
+            R res = R.ok()
+                    .put("msgtype", 3)
+                    .put("username", username)
+                    .put("sessionid", sessionid)
+                    .put("tokenid", tokenid);
+            if (webSocketHandler.sendMessageToUser(sessionid, new TextMessage(JSON.toJSONString(res)))) {
+                // 存
+                LOGIN_SUCCESS_USERS.put(username, sessionid);
+                log.info("用户：" + username + "登录成功!sessionid=" + sessionid);
+                success = true;
+            }
+
+        }
+        return success ? R.ok() : R.error();
+    }
+
 
     /**
      * 二维码登录成功，PC端请求访问主页
@@ -186,6 +185,7 @@ public class QrCodeLoginController {
         if (StringUtils.isBlank(username) || StringUtils.isBlank(sessionid)) {
             return new ModelAndView("authentication/login");
         }
+        // 取
         if (sessionid.equals(LOGIN_SUCCESS_USERS.get(username))) {
             LOGIN_SUCCESS_USERS.remove(username);
             return getAccessToken(request, authcode, response);

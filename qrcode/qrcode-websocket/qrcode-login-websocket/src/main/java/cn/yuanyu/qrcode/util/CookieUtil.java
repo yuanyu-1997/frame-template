@@ -6,23 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CookieUtil {
 
-	// 默认缓存时间,单位/秒, 24H
-	private static final int COOKIE_MAX_AGE = 60 * 60 * 24;
 	// 保存路径,根路径
 	private static final String COOKIE_PATH = "/";
-
-	/**
-	 * 保存
-	 *
-	 * @param response
-	 * @param key
-	 * @param value
-	 * @param ifRemember
-	 */
-	public static void set(HttpServletRequest request, HttpServletResponse response, String key, String value, boolean ifRemember) {
-		int age = ifRemember ? COOKIE_MAX_AGE : -1;
-		set(request, response, key, value, null, COOKIE_PATH, age, true);
-	}
 
 	/**
 	 * 保存
@@ -43,20 +28,6 @@ public class CookieUtil {
 		response.addCookie(cookie);
 	}
 
-	/**
-	 * 查询value
-	 *
-	 * @param request
-	 * @param key
-	 * @return
-	 */
-	public static String getValue(HttpServletRequest request, String key) {
-		Cookie cookie = get(request, key);
-		if (cookie != null) {
-			return cookie.getValue();
-		}
-		return null;
-	}
 
 	/**
 	 * 查询Cookie

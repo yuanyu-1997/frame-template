@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cookie</title>
+</head>
+<body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script type="text/javascript">
+
+    $.ajax({
+        type: 'post',
+        url: `http://localhost:8084/a`,
+        dataType: 'json',
+        xhrFields: {
+            withCredentials: true // 默认情况下，标准的跨域请求是不会发送cookie的
+        },
+        success: function (data, textStatus, xhr) {
+            console.log('请求成功 => ' + JSON.stringify(data, null, 2));
+        },
+        error: function (msg) {
+            console.log('请求失败 => ' + JSON.stringify(msg, null, 2));
+        }
+    });
+    $.ajax({
+        type: 'post',
+        url: `http://localhost:8084/b`,
+        dataType: 'json',
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            console.log('请求成功 => ' + JSON.stringify(data, null, 2));
+        },
+        error: function (msg) {
+            console.log('请求失败 => ' + JSON.stringify(msg, null, 2));
+        }
+    });
+
+</script>
+
+
+</body>
+</html>
