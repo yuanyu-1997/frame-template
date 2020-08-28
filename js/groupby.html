@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js分组</title>
+</head>
+
+<body>
+
+
+    <script>
+
+
+        function groupBy(array, name) {
+            const groups = {};
+            array.forEach(function (o) {
+                const group = JSON.stringify(o[name])
+                groups[group] = groups[group] || []
+                groups[group].push(o)
+            })
+            return Object.keys(groups).map(function (group) {
+                return groups[group]
+            });
+        };
+
+        tableData = [
+            { id: 1, name: '测试', number: 1, price: 0 },
+            { id: 2, name: '测试', number: 1, price: 0 },
+            { id: 3, name: '测试', number: 1, price: 0 },
+            { id: 4, name: '测试一', number: 1, price: 780 },
+            { id: 5, name: '测试一', number: 1, price: 80 },
+            { id: 6, name: '测试一', number: 1, price: 120 },
+            { id: 7, name: '测试二', number: 1, price: 0 }
+        ];
+
+        const sorted = groupBy(this.tableData, 'name')
+        console.info(sorted)
+
+    </script>
+
+
+
+</body>
+
+</html>

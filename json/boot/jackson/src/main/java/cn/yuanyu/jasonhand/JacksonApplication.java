@@ -8,5 +8,4 @@ public class JacksonApplication {
     public static void main(String[] args) {
         SpringApplication.run(JacksonApplication.class, args);
     }
-
 }
