@@ -12,10 +12,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @Component
 public class SystemWebSocketHandler implements WebSocketHandler {
+
     // 在线用户列表
     private static final Map<String, WebSocketSession> users = new HashMap<>();
+
     // 用户标识
     private static final String USER_KEY = "username";
 
@@ -38,7 +41,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> wsm) {
         String username = getClientId(session);
-        System.out.println("来消息了 => " + username);
+        System.out.println("来消息了 => " + username + ":" + wsm.getPayload());
     }
 
     /**
@@ -65,7 +68,6 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         return false;
     }
 
-
     /**
      * 获取用户标识
      */
@@ -76,4 +78,26 @@ public class SystemWebSocketHandler implements WebSocketHandler {
             return null;
         }
     }
+
+
+    /**
+     * 广播
+     *
+     * @param msg 广播内容
+     */
+    public void broadcast(String msg) {
+        for (Map.Entry<String, WebSocketSession> entry : users.entrySet()) {
+            String name = entry.getKey();
+            WebSocketSession session = entry.getValue();
+            if (session.isOpen()) {
+                try {
+                    session.sendMessage(new TextMessage(msg));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
 }

@@ -20,18 +20,27 @@
     //
     // localhost:8084
     let bashpath = "<%=request.getServerName()+":"+request.getServerPort()+ request.getContextPath()%>";
-    console.log('bashpath => '+bashpath)
+    console.log('bashpath => ' + bashpath)
 </script>
 
 <script type="text/javascript">
+    function uuid() {
+        function S4() {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+
+        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+    }
+
 
     let websocket = null;
+    const userName = uuid();
 
     function login() {
         const idx = layer.load();
         $.ajax({
             type: 'post',
-            url: `${bashpath}/login/张三`,
+            url: `${bashpath}/login/` + userName,
             timeout: 5000,
             async: false, // 默认是异步的
             dataType: 'text',
@@ -58,8 +67,7 @@
              * @param event
              */
             websocket.onopen = function (event) {
-                console.log("和服务端成功建立连接...");
-                alert('成功建立连接')
+                layer.msg('和服务器成功建立连接', {icon: 1});
             }
             /**
              * 接收到消息的回调方法
@@ -70,6 +78,7 @@
             }
         }
     }
+
 
     login();
     conn();

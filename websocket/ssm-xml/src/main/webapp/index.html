@@ -12,10 +12,13 @@
     let websocket;
 
     function login() {
+
         const idx = layer.load();
+        const userName = uuid();
+        console.log('userName => ' + userName);
         $.ajax({
             type: 'post',
-            url: `http://localhost:8084/login/张三`,
+            url: `http://localhost:8084/login/${userName}`,
             timeout: 5000,
             async: false, // 默认是异步的
             dataType: 'text',
@@ -42,7 +45,6 @@
              * @param event
              */
             websocket.onopen = function (event) {
-                console.log("和服务端成功建立连接...")
                 layer.msg('和服务器成功建立连接', {icon: 1});
             }
             /**
@@ -72,6 +74,15 @@
             }
         }
     }
+
+    function uuid() {
+        function S4() {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+
+        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+    }
+
 
     login();
     conn();

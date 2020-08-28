@@ -23,7 +23,7 @@ import java.util.Map;
 @Slf4j
 @Controller
 @CrossOrigin
-@RequestMapping(value = "/qrcodelogin")
+@RequestMapping(value = "/login/qrcode")
 public class QrCodeLoginController {
 
     @Autowired
@@ -38,37 +38,31 @@ public class QrCodeLoginController {
     /**
      * 1.获取二维码内容
      */
-    // http://127.0.0.1:30000/heihei/qrcodelogin/getloginuuid.do
+    // http://127.0.0.1:30000/heihei/login/qrcode/loginuuid
     @ResponseBody
-    @RequestMapping(value = "/getloginuuid.do")
+    @GetMapping(value = "/loginuuid")
     public R getLoginUuid(HttpServletRequest request) {
-        String state = StringAssistor.randomString(6);
-        String clientIp = IPUtils.getClientIP(request);
+        String sessionid = StringAssistor.randomString(6);
         HttpSession session = request.getSession();
-
-        // TODO 这里往session里面存入了数据
-        session.setAttribute("sessionid", state);
-        session.setAttribute("clientip", clientIp);
-        // TODO 二维码内容
-        String loginurl = "http://127.0.0.1:30000/heihei/qrcodelogin/callback.do" + "?state=" + state + "&act=" + "UniSSO-service";
+        // 这里往session里面存入了数据
+        session.setAttribute("sessionid", sessionid);
+        // 二维码内容
+        String loginUrl = "http://127.0.0.1:30000/heihei/login/qrcode/callback" + "?sessionid=" + sessionid;
         return R.ok()
-                .put("loginurl", loginurl)
-                .put("sessionid", state);
+                .put("loginurl", loginUrl)
+                .put("sessionid", sessionid);
     }
 
-    /**
-     * 2.二维码扫描回调（手机会解析二维码并请求这个地址）
-     */
-    // 手机app解析二维码，回调这个地址
 
     /**
-     * @param type     1 二维码过期  2 二维码被扫描  3 登录成功
+     * 手机app解析二维码，回调这个地址
+     * @param type     扫描状态（1 二维码过期  2 二维码被扫描  3 登录成功
      * @param username 用户唯一标识（用户已经在app登陆，由app获取）
      * @param code
      * @param state    二维码唯一标识（来自二维码的回传）
      */
     @ResponseBody
-    @PostMapping(value = "/callback.do")
+    @PostMapping(value = "/callback")
     public R callback(HttpServletRequest request) {
         Map<String, String> params = ModelAndViewUtil.fetchParameterMap(request);
         log.info("二维码扫描回调 => " + params);

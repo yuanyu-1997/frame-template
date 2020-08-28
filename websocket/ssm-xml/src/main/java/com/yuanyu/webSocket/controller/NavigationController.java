@@ -74,10 +74,4 @@ public class NavigationController {
         response.getWriter().write(serialize);
     }
 
-
-
-
-
-
-
 }

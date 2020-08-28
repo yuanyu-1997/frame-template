@@ -14,12 +14,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-
         <!-- spring -->
         <spring.version>5.2.6.RELEASE</spring.version>
         <!-- apache -->
         <commons.lang.version>3.10</commons.lang.version>
-        <!-- fastjson -->
+        <!-- json -->
+        <jackson.version>2.11.2</jackson.version>
         <fastjson.version>1.2.73</fastjson.version>
     </properties>
 
@@ -51,11 +51,26 @@
 
         <!-- json -->
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
-
 
         <!--
             TODO 日志没弄好
@@ -89,6 +104,27 @@
         </dependency>
 
     </dependencies>
+
+
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- clean tomcat7:run -->
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.2</version>
+                    <configuration>
+                        <path>/heihei</path>
+                        <port>30000</port>
+                        <uriEncoding>UTF-8</uriEncoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
 
 
 </project>
