@@ -26,6 +26,7 @@ import java.util.Map;
 @RequestMapping(value = "/login/qrcode")
 public class QrCodeLoginController {
 
+    // 和网页通信
     @Autowired
     private WebSocketHandler webSocketHandler;
 
