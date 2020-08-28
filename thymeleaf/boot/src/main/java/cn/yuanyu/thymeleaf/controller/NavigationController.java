@@ -1,4 +1,4 @@
-package cn.yuanyu.websocket.controller;
+package cn.yuanyu.thymeleaf.controller;
 
 
 import org.springframework.stereotype.Controller;

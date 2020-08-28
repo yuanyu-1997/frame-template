@@ -2,9 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="zh">
 <head>
     <title>hello</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
+
+<link type="text/css" th:href="@{/css/a.css}" rel="stylesheet"/>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+
+<script th:inline="javascript" type="text/javascript">
+    // 项目根路径 /heihei
+    // const ctxPath  = [[@{/}]];
+    // const ctxPath = /*[[@{/}]]*/'';
+    const ctxPath = [[${#httpServletRequest.getContextPath()}]];
+    console.log("contextPath => " + ctxPath)
+    // 协议 http
+    const scheme = [[${#httpServletRequest.getScheme()}]];
+    console.log('scheme => ' + scheme);
+    // 服务器名 localhost
+    const serverName = [[${#httpServletRequest.getServerName()}]];
+    console.log('serverName => ' + serverName);
+    // 服务器端口 3000
+    const serverPort = [[${#httpServletRequest.getServerPort()}]];
+    console.log('serverName => ' + serverPort);
+
+</script>
+
+
 <body>
+<p th:text="${#httpServletRequest.getContextPath()}">666</p>
 <p th:text="${key}">666</p>
+<button id="box">jq</button>
+
+<script>
+    const key = '[[${key}]]';
+    console.log('key => ' + key);
+    $("#box").click(function () {
+        alert('jq');
+    });
+
+</script>
+
+
 </body>
 </html>
