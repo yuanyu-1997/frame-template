@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 @Controller
 @RequestMapping("/")
-public class HelloWorldController {
+public class MapTestController {
 
     // http://localhost:2000/ssm/map
     @RequestMapping("/map")

@@ -76,8 +76,8 @@
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <version>2.2</version>
                     <configuration>
-                        <path>/heihei</path>
-                        <port>3000</port>
+                        <path>/emm-cgi</path>
+                        <port>15736</port>
                         <uriEncoding>UTF-8</uriEncoding>
                     </configuration>
                 </plugin>

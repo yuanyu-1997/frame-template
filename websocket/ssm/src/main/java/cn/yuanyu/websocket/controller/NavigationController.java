@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class NavigationController {
 
-    // http://localhost:3000/websocket
-    @GetMapping("/websocket")
+
+    // http://localhost:15736/emm-cgi/page
+
+    // http://localhost:58443/emm-cgi/websocket
+    // http://localhost:15736/emm-cgi/websocket
+    @GetMapping("/page")
     public String websocket(){
         return "websocket";
     }

@@ -14,5 +14,4 @@ import org.springframework.stereotype.Controller;
 public class ApplicationConfig {
     //在此配置除了Controller的其它bean（数据库链接池、事务管理器、业务bean等）
 
-
 }

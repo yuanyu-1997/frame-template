@@ -48,7 +48,8 @@
 
     function conn() {
         if ('WebSocket' in window) {
-            websocket = new WebSocket("ws://localhost:3000/heihei/websocket/chat");
+            websocket = new WebSocket("ws://localhost:15736/emm-cgi/websocket/chat");
+            //websocket = new WebSocket("ws://localhost:58443/emm-cgi/websocket/chat");
         } else {
             throw new Error("Not support websocket");
         }
