@@ -20,7 +20,8 @@
     //
     // localhost:8084
     let bashpath = "<%=request.getServerName()+":"+request.getServerPort()+ request.getContextPath()%>";
-    console.log('bashpath => '+bashpath)
+
+    console.log('bashpath => ' + bashpath)
 </script>
 
 <script type="text/javascript">
@@ -28,10 +29,11 @@
     let websocket = null;
 
     function login() {
+        const name = prompt("请输入您的名字");
         const idx = layer.load();
         $.ajax({
             type: 'post',
-            url: `${bashpath}/heihei/login/张三`,
+            url: '/emm-cgi/login/' + name,
             timeout: 5000,
             async: false, // 默认是异步的
             dataType: 'text',
@@ -47,9 +49,10 @@
     }
 
     function conn() {
+
         if ('WebSocket' in window) {
-            websocket = new WebSocket("ws://localhost:15736/emm-cgi/websocket/chat");
-            //websocket = new WebSocket("ws://localhost:58443/emm-cgi/websocket/chat");
+            //websocket = new WebSocket("ws://localhost:15736/emm-cgi/websocket/qrcodelogin");
+            websocket = new WebSocket("ws://localhost:58443/emm-cgi/websocket/qrcodelogin");
         } else {
             throw new Error("Not support websocket");
         }
@@ -59,15 +62,28 @@
              * @param event
              */
             websocket.onopen = function (event) {
-                console.log("和服务端成功建立连接...");
-                alert('成功建立连接')
+                layer.msg('和服务端成功建立连接.');
             }
             /**
              * 接收到消息的回调方法
              * @param event
              */
             websocket.onmessage = function (event) {
-                console.log("接收到服务端消息 => " + event.data)
+                window.ev = event;
+                console.log("接收到服务端消息 => " + event.data);
+            }
+
+            /**
+             * 关闭事件
+             */
+            websocket.onclose = function () {
+                layer.msg('websocket已关闭.');
+            };
+            /**
+             * 发生了错误事件
+             */
+            websocket.onerror = function () {
+                layer.msg('websocket发生了错误.');
             }
         }
     }
