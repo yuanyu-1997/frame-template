@@ -49,10 +49,24 @@
     }
 
     function conn() {
+        // https://www.baidu.com/
+
+        // https:
+        const protocol = window.location.protocol;
+        // www.xxx.com:port
+        const host = window.location.host;
+
+        // ws 协议
+        let agreement;
+        if (protocol === 'https:') {
+            agreement = "wss://";
+        } else {
+            agreement = "ws://";
+        }
 
         if ('WebSocket' in window) {
             //websocket = new WebSocket("ws://localhost:15736/emm-cgi/websocket/qrcodelogin");
-            websocket = new WebSocket("ws://localhost:58443/emm-cgi/websocket/qrcodelogin");
+            websocket = new WebSocket(agreement + host + '/emm-cgi/websocket/qrcodelogin');
         } else {
             throw new Error("Not support websocket");
         }
