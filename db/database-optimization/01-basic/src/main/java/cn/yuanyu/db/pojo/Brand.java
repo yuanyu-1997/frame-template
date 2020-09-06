@@ -1,26 +1,21 @@
-package com.nobug.entity;
+package cn.yuanyu.db.pojo;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 品牌表
  */
 @Data
-@Entity
 public class Brand {
     /**
      * 品牌id
      */
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
     /**
      * 品牌名称
      */
-    @Column(length = 255)
     private String name;
 
     /**
@@ -28,4 +23,12 @@ public class Brand {
      */
     private Character firstChar;
 
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 }

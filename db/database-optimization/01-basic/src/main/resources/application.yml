@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: db-log
+  profiles:
+    active: dev
+  thymeleaf:
+    cache: false
+server:
+  port: 5000
+
+
+logging:
+  level:
+    cn.yuanyu.db : debug

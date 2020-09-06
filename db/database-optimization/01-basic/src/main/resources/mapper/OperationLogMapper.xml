@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yuanyu.db.mapper.OperationLogMapper">
+    <!--
+        OperationLogMapper.xml
+    -->
+    <sql id="query_where">
+        <where>
+            <if test="operateUser != null and operateUser != ''">
+                and operate_user = #{operateUser}
+            </if>
+            <if test="operateMethod != null and operateMethod != ''">
+                and operate_method = #{operateMethod}
+            </if>
+            <if test="returnClass != null and returnClass != ''">
+                and return_class = #{returnClass}
+            </if>
+            <if test="costTime != null">
+                and cost_time = #{costTime}
+            </if>
+        </where>
+    </sql>
+
+
+    <insert id="insert" parameterType="cn.yuanyu.db.pojo.OperationLog">
+        INSERT INTO operation_log(return_value, return_class, operate_user, param_and_value, operate_class,
+                                  operate_method, cost_time)
+        VALUES (#{returnValue}, #{returnClass}, #{operateUser}, #{paramAndValue}, #{operateClass}, #{operateMethod},
+                #{costTime})
+    </insert>
+
+    <select id="countByCondition" resultType="long" parameterType="map">
+        SELECT COUNT(*) FROM `operation_log`
+        <include refid="query_where"/>
+    </select>
+
+    <!--
+        第一版分页查询
+    -->
+    <!--
+    <select id="findByCondition" parameterType="map" resultType="cn.yuanyu.db.pojo.OperationLog">
+        SELECT
+        id,
+        operate_class AS operateClass ,
+        operate_method AS operateMethod,
+        return_class AS returnClass,
+        operate_user AS operateUser,
+        param_and_value AS paramAndValue,
+        cost_time AS costTime,
+        return_value AS returnValue,
+        create_time as createTime
+        FROM
+        operation_log
+        <include refid="query_where"/>
+        LIMIT #{start} , #{rows}
+    </select>
+    -->
+
+    <!--
+        第二版分页查询
+    -->
+    <select id="findByCondition" parameterType="map" resultType="cn.yuanyu.db.pojo.OperationLog">
+        SELECT
+        o.id,
+        o.operate_class AS operateClass ,
+        o.operate_method AS operateMethod,
+        o.return_class AS returnClass,
+        o.operate_user AS operateUser,
+        o.param_and_value AS paramAndValue,
+        o.cost_time AS costTime,
+        o.return_value AS returnValue,
+        o.create_time as createTime
+        FROM
+        operation_log o,
+        (SELECT id FROM operation_log
+        <include refid="query_where"/>
+        ORDER BY id LIMIT #{start} , #{rows}) a
+        where
+        o.id = a.id
+    </select>
+
+
+</mapper>
