@@ -1,3 +1,12 @@
+
+
+```
+https://www.cnblogs.com/mafly/p/websocket.html
+```
+
+
+
+
 ```
 location /websocket {
     proxy_pass http://ip:port;
@@ -9,11 +18,11 @@ location /websocket {
 
 
 
+nginx.conf
 
-
-
-
-
+- http://localhost:58443/
+- http://localhost:15736/emm-cgi/login
+- http://localhost:58443/emm-cgi/login
 
 ```
 worker_processes  1;
@@ -28,14 +37,12 @@ http {
     server {
         listen       58443;
         server_name  localhost;
-        location / {
-            proxy_pass http://127.0.0.1:3000/;
-			proxy_set_header Host $http_host;
+        location /emm-cgi {
 			proxy_http_version 1.1;
+			proxy_read_timeout 300s;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection "upgrade";
-			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-			proxy_set_header X-Read-IP $remote_addr;
+			proxy_pass http://127.0.0.1:15736/emm-cgi;
         }
         error_page   500 502 503 504  /50x.html;
         location = /50x.html {
@@ -44,4 +51,5 @@ http {
     }
 }
 ```
+
 

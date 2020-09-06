@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
 public class NavigationController {
 
-    // http://localhost:3000/websocket
-    @GetMapping("/websocket")
+    // http://localhost:58443/emm-cgi/login
+    // http://localhost:15736/emm-cgi/login
+    @GetMapping("/login")
     public String websocket(){
         return "websocket";
     }

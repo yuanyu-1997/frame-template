@@ -18,14 +18,12 @@ import java.util.Set;
 // https://www.cnblogs.com/nosqlcoco/p/5860730.html
 // var websocket = new WebSocket("ws://127.0.0.1:2000/websocket");
 
-/**
- *
- */
+// websocket.send('客户端发送消息测试');
 @Slf4j
 @Service
 public class ChatWebSocketHandler extends TextWebSocketHandler {
     // 在线用户列表
-    private static final Map<String, WebSocketSession> users = new HashMap<>();
+    private static final Map<String, WebSocketSession> ONLINE_USERS = new HashMap<>();
     // 用户标识
     private static final String USER_KEY = "username";
 
@@ -38,8 +36,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         String username = getClientId(session);
         log.info("username => {}", username);
         if (username != null) {
-            users.put(username, session);
-            session.sendMessage(new TextMessage("成功建立socket连接"));
+            ONLINE_USERS.put(username, session);
+            session.sendMessage(new TextMessage("server: 成功建立socket连接"));
         }
     }
 
@@ -50,13 +48,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
      */
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
-        System.out.println(message.getPayload());
-        TextMessage textMessage = new TextMessage("server:" + message);
-        try {
-            session.sendMessage(textMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String username = getClientId(session);
+        TextMessage textMessage = new TextMessage(username + ": " + message.getPayload());
+        sendMessageToAllUsers(textMessage);
     }
 
     /**
@@ -65,7 +59,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         log.info("连接已关闭 => {}", status);
-        users.remove(getClientId(session));
+        ONLINE_USERS.remove(getClientId(session));
     }
 
     /**
@@ -77,22 +71,22 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             session.close();
         }
         log.info("连接出错...");
-        users.remove(getClientId(session));
+        ONLINE_USERS.remove(getClientId(session));
     }
 
-//    @Override
-//    public boolean supportsPartialMessages() {
-//        return false;
-//    }
+    @Override
+    public boolean supportsPartialMessages() {
+        return false;
+    }
 
     /**
      * 发送信息给指定用户
      */
     public boolean sendMessageToUser(String clientId, TextMessage message) {
-        if (users.get(clientId) == null) {
+        if (ONLINE_USERS.get(clientId) == null) {
             return false;
         }
-        WebSocketSession session = users.get(clientId);
+        WebSocketSession session = ONLINE_USERS.get(clientId);
         if (!session.isOpen()) {
             return false;
         }
@@ -110,13 +104,13 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
      */
     public boolean sendMessageToAllUsers(TextMessage message) {
         boolean allSendSuccess = true;
-        Set<String> clientIds = users.keySet();
+        Set<String> clientIds = ONLINE_USERS.keySet();
         WebSocketSession session;
         for (String clientId : clientIds) {
             try {
-                session = users.get(clientId);
+                session = ONLINE_USERS.get(clientId);
                 if (session.isOpen()) {
-                    session.sendMessage(new TextMessage("（" +clientId + "）" + message));
+                    session.sendMessage(new TextMessage(message.getPayload()));
                 }
             } catch (IOException e) {
                 e.printStackTrace();

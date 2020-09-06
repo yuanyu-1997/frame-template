@@ -26,12 +26,10 @@ public class WebSocketConfig  implements WebSocketConfigurer {
         /*
          * 添加拦截地址以及相应的websocket消息处理器
          */
-        registry.addHandler(chatWebSocketHandler, "/websocket/chat")
+        registry.addHandler(chatWebSocketHandler, "/websocket/qrcodelogin")
                 .addInterceptors(webSocketInterceptor)
                 .setAllowedOrigins("*");
     }
-
-
 
 
 }
