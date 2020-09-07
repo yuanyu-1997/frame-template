@@ -1,0 +1,11 @@
+server:
+  port: 4000
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://121.36.33.154:5700/mysql_probabilistic_data_structure?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+logging:
+  level:
+    cn.yuanyu.guava: debug

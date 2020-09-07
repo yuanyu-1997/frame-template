@@ -1,0 +1,12 @@
+server:
+  port: 4000
+spring:
+  redis:
+    host: 121.36.33.154
+    port: 6300
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://121.36.33.154:5600/rob_redpacket?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456

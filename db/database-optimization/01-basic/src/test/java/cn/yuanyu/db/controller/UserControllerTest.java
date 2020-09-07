@@ -18,12 +18,11 @@ public class UserControllerTest {
         Result res = new RestTemplate().postForObject(url, user, Result.class);
         log.info("res => {}", res);
     }
-    
+
     @Test
     public void test_insert_user(){
         for (int i = 0; i < 100; i++) {
             insert_user();
         }
     }
-
 }

@@ -1,0 +1,10 @@
+server:
+  port: 4000
+spring:
+  redis:
+    port: 6600
+    host: 121.36.33.154
+
+logging:
+  level:
+    cn.yuanyu.guava: debug
