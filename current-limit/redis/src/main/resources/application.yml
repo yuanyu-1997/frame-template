@@ -1,0 +1,8 @@
+spring:
+  redis:
+    host: 121.36.33.154
+    port: 6200
+server:
+  servlet:
+    context-path: /heihei
+  port: 5000
