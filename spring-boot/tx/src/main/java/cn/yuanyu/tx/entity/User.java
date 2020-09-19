@@ -2,14 +2,11 @@ package cn.yuanyu.tx.entity;
 
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * @author yuanyu
  */
 @Data
-public class User implements Serializable {
-    private static final long serialVersionUID = -22949137694436362L;
+public class User {
     /**
      * 主键ID
      */
@@ -35,5 +32,16 @@ public class User implements Serializable {
      */
     private String email;
 
+    public User() {
+    }
 
+
+
+    public User(String username, String password, String name, Integer age, String email) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.age = age;
+        this.email = email;
+    }
 }

@@ -13,56 +13,24 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into easycode_db.user(user_name, password, name, age, email)
-        values (#{userName}, #{password}, #{name}, #{age}, #{email})
+        insert into tb_user(username, password, name, age, email)
+        values (#{username}, #{password}, #{name}, #{age}, #{email})
     </insert>
 
-    <!--通过主键修改数据-->
-    <update id="update">
-        update easycode_db.user
-        <set>
-            <if test="userName != null and userName != ''">
-                user_name = #{userName},
-            </if>
-            <if test="password != null and password != ''">
-                password = #{password},
-            </if>
-            <if test="name != null and name != ''">
-                name = #{name},
-            </if>
-            <if test="age != null">
-                age = #{age},
-            </if>
-            <if test="email != null and email != ''">
-                email = #{email},
-            </if>
-        </set>
-        where id = #{id}
-    </update>
-
-    <!--通过主键删除-->
-    <delete id="deleteById">
+    <delete id="deleteByUsername">
         delete
-        from easycode_db.user
-        where id = #{id}
+        from tb_user
+        where username = #{username}
     </delete>
 
-    <!--查询单个-->
-    <select id="queryById" resultMap="UserMap">
+    <select id="queryByUsername" resultType="cn.yuanyu.tx.entity.User">
         select id,
-               user_name,
+               username,
                password,
                name,
                age,
                email
-        from easycode_db.user
-        where id = #{id}
+        from tb_user
+        where username = #{username}
     </select>
-
-    <select id="queryAll" resultType="cn.yuanyu.tx.entity.User">
-        select *
-        from easycode_db.user
-    </select>
-
-
 </mapper>

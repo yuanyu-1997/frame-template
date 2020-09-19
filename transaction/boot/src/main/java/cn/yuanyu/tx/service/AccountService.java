@@ -9,6 +9,7 @@ import cn.yuanyu.tx.entity.Account;
  * @author yuanyu
  */
 public interface AccountService {
+
     /**
      * 根据用户名查询账户信息
      */
