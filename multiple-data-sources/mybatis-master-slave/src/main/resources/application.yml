@@ -3,7 +3,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       write: # 主数据源（master地址）
-        url: jdbc:mysql://121.36.33.154:33060/master_slave_test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+        url: jdbc:mysql://120.25.216.234:33060/master_slave_test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
         username: root
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver

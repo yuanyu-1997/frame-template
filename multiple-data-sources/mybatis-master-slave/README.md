@@ -42,7 +42,7 @@ cat /etc/mysql/my.cnf
 exit
 ```
 
-后重启容器
+重启容器
 
 ```bash
 docker restart mysql_master
