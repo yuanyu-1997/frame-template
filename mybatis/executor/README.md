@@ -1,21 +1,6 @@
-
-
-```bash
-docker run \
---name mysql_mybatis_executor \
---env MYSQL_ROOT_HOST=%.%.%.% \
---env MYSQL_ROOT_PASSWORD=123456 \
--p 45000:3306  \
--di mysql:8.0.18
-```
-
-```
-jdbc:mysql://121.36.33.154:45000?serverTimezone=UTC
-```
-
 ```sql
-CREATE DATABASE mybatis_bash_db;
-USE mybatis_bash_db;
+CREATE DATABASE mybatis_bash_test_db;
+USE mybatis_bash_test_db;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`

@@ -7,7 +7,7 @@
 
 - [Spring使用事务案例](./transaction/annotation-ssm)
 - [SpringBoot中使用事务案例](./transaction/boot)
-- [Spring中使用事务注解的注意事项](./transaction/transactional)
+- [Spring中使用事务注解的注意事项](./transaction/@Transactional)
 
 MyBatis
 

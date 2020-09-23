@@ -16,6 +16,4 @@ public interface PersonMapper {
     Person selectPersonByUsername(String username);
 
 
-
-
 }

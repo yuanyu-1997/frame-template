@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://39.106.196.224:6699/mybatis_db?serverTimezone=Asia/Shanghai&useSSL=false&characterEncoding=utf8
+    url: jdbc:mysql://121.36.33.154:6699/mybatis_db?characterEncoding=utf-8&useUnicode=true&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver

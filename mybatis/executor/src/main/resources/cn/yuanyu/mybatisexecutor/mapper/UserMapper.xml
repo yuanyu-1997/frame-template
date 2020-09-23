@@ -13,10 +13,10 @@
 
     <!-- 清空表中数据, 同时重置自增序列从0开始 -->
     <delete id="clear">
-        truncate table mybatis_bash_db.user
+        truncate table mybatis_bash_test_db.user
     </delete>
 
-    <!--查询单个-->
+    <!-- 查询单个 -->
     <select id="queryById" resultMap="UserMap">
         select id,
                username,
@@ -24,13 +24,13 @@
                birthday,
                address,
                password
-        from mybatis_bash_db.user
+        from mybatis_bash_test_db.user
         where id = #{id}
     </select>
 
-    <!--新增所有列-->
+    <!-- 新增所有列 -->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into mybatis_bash_db.user(id, username, sex, birthday, address, password)
+        insert into mybatis_bash_test_db.user(id, username, sex, birthday, address, password)
         values (#{id}, #{username}, #{sex}, #{birthday}, #{address}, #{password})
     </insert>
 

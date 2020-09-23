@@ -1,62 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="cn.yuanyu.mybatis.mapper.PersonMapper">
     <!-- 方式一 -->
-    <!--    <resultMap type="cn.yuanyu.mybatis.entity.Person" id="personMapper">-->
-    <!--        <id property="id" column="id"/>-->
-    <!--        <result property="username" column="username"/>-->
-    <!--        <result property="password" column="password"/>-->
-    <!--        <result property="sex" column="sex"/>-->
-    <!--        <result property="age" column="age"/>-->
-    <!--        &lt;!&ndash;  &ndash;&gt;-->
-    <!--        <association property="card" column="id"-->
-    <!--                     select="cn.yuanyu.mybatis.mapper.CardMapper.selectCardById"-->
-    <!--                     javaType="cn.yuanyu.mybatis.entity.Card"/>-->
-    <!--    </resultMap>-->
-    <!--    <select id="selectPersonByUsername" resultMap="personMapper">-->
-    <!--        SELECT *-->
-    <!--        from tb_person-->
-    <!--        where username = #{username}-->
-    <!--    </select>-->
+    <resultMap type="cn.yuanyu.mybatis.entity.Person" id="personMapper">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <association property="card" column="id"
+                     select="cn.yuanyu.mybatis.mapper.CardMapper.selectCardById"
+                     javaType="cn.yuanyu.mybatis.entity.Card"/>
+    </resultMap>
+    <select id="selectPersonByUsername" resultMap="personMapper">
+        SELECT *
+        from tb_person
+        where username = #{username}
+    </select>
 
 
     <!-- 方式二 -->
 
-    <!--<resultMap type="cn.yuanyu.mybatis.entity.Person" id="personMapper">-->
-    <!--    <id property="id" column="id"/>-->
-    <!--    <result property="username" column="username"/>-->
-    <!--    <result property="password" column="password"/>-->
-    <!--    <result property="sex" column="sex"/>-->
-    <!--    <result property="age" column="age"/>-->
-    <!--    &lt;!&ndash;  &ndash;&gt;-->
-    <!--    <collection property="card" ofType="cn.yuanyu.mybatis.entity.Card">-->
-    <!--        <id property="personId" column="person_id"/>-->
-    <!--        <result property="code" column="code"/>-->
-    <!--        <result property="address" column="address"/>-->
-    <!--        &lt;!&ndash;  &ndash;&gt;-->
-    <!--    </collection>-->
-    <!--</resultMap>-->
-
-        <resultMap type="cn.yuanyu.mybatis.entity.Person" id="personMapper">
-            <id property="id" column="id"/>
-            <result property="username" column="username"/>
-            <result property="password" column="password"/>
-            <result property="sex" column="sex"/>
-            <result property="age" column="age"/>
-            <!--  -->
-            <result property="card.personId" column="person_id"/>
-            <result property="card.code" column="code"/>
-            <result property="card.address" column="address"/>
-        </resultMap>
+    <!-- 方式二的第一种映射方式
+    TODO 有点问题
+    <resultMap type="cn.yuanyu.mybatis.entity.Person" id="personMapper">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <collection property="card" ofType="cn.yuanyu.mybatis.entity.Card">
+            <id property="personId" column="person_id"/>
+            <result property="code" column="code"/>
+            <result property="address" column="address"/>
+        </collection>
+    </resultMap>
+    -->
 
 
+    <!-- 方式二的第二种映射方式
+    <resultMap type="cn.yuanyu.mybatis.entity.Person" id="personMapper">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="card.personId" column="person_id"/>
+        <result property="card.code" column="code"/>
+        <result property="card.address" column="address"/>
+    </resultMap>
+    -->
+
+
+    <!--
     <select id="selectPersonByUsername" resultMap="personMapper">
         select *
         from tb_person p
                  join tb_card c on p.id = c.person_id and p.username = #{username}
     </select>
+    -->
 
 
 </mapper>

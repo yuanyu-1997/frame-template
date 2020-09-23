@@ -4,9 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.yuanyu.mybatis</groupId>
-    <artifactId>dynamic</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-
+    <artifactId>one-one</artifactId>
+    <version>1.0.0.RELEASE</version>
 
     <dependencyManagement>
         <dependencies>
@@ -22,11 +21,10 @@
     </dependencyManagement>
 
     <properties>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
     </properties>
-
 
 
     <dependencies>
