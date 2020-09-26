@@ -71,13 +71,14 @@ public class T4ServiceImpl {
 
 
 
+    // m14 -> m15
     @Transactional
     public void m14(User a, User b) {
         userMapper.insert(a);
         m15(b);
         int hehe = 1/0;
     }
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW) // 不生效
     public void m15(User user) {
         userMapper.insert(user);
     }

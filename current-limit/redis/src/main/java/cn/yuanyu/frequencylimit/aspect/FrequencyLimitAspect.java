@@ -30,7 +30,6 @@ import java.util.HashMap;
 @Component
 public class FrequencyLimitAspect {
 
-
     @Autowired
     private CurrentLimitServiceImpl currentLimitService;
 
@@ -43,7 +42,7 @@ public class FrequencyLimitAspect {
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-
+        //
         Object target = joinPoint.getTarget();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = target.getClass().getMethod(signature.getName(), signature.getParameterTypes());
@@ -60,16 +59,15 @@ public class FrequencyLimitAspect {
 
             ObjectMapper mapper = new ObjectMapper();
             response.setContentType("application/json;charset=utf-8");
-            //response.setStatus(HttpStatus.FORBIDDEN.value());
             HashMap<String, String> res = new HashMap<>();
             res.put("msg", "请求频率过快，拒绝访问当前接口");
             res.put("code", "403");
             response.getWriter().write(mapper.writeValueAsString(res));
 
+            return null;
         } else {
             // 执行方法
             return joinPoint.proceed();
         }
-        return null;
     }
 }

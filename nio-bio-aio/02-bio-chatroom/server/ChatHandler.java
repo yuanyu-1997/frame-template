@@ -3,6 +3,9 @@ package server;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * 简单客户端发送的消息，并广播给其他客户端
+ */
 public class ChatHandler implements Runnable {
     private final ChatServer server;
     private final Socket socket;

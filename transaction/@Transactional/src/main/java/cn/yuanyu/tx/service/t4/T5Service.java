@@ -38,7 +38,7 @@ public interface T5Service {
     void m21(User user);
 
 
-
-
+    // T5Service2.m22 -> T5Service.m23
+    void m23(User user);
 
 }

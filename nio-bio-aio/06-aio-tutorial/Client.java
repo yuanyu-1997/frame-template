@@ -7,9 +7,9 @@ import java.util.concurrent.Future;
 
 public class Client {
 
-    final String LOCALHOST = "localhost";
-    final int DEFAULT_PORT = 8888;
-    AsynchronousSocketChannel clientChannel;
+    private final String LOCALHOST = "localhost";
+    private final int DEFAULT_PORT = 8888;
+    private AsynchronousSocketChannel clientChannel;
 
     private void close(Closeable closable) {
         if (closable != null) {
@@ -30,8 +30,7 @@ public class Client {
             future.get();
 
             // 等待用户的输入
-            BufferedReader consoleReader =
-                    new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
             while (true) {
                 String input = consoleReader.readLine();
 
@@ -50,11 +49,7 @@ public class Client {
                 System.out.println(echo);
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (IOException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         } finally {
             close(clientChannel);

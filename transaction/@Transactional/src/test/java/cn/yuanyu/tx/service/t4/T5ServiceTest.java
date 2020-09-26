@@ -97,7 +97,8 @@ public class T5ServiceTest {
 
 
     /**
-     *
+
+*
      */
     @Test
     public void m14() {
@@ -135,7 +136,7 @@ public class T5ServiceTest {
     }
 
 
-    // 异常被吃掉了，两个方法都会回滚
+    // 异常被吃掉了，两个方法都不会回滚
     @Test
     public void m20() {
         String name1 = "m20";
@@ -151,6 +152,24 @@ public class T5ServiceTest {
         log.info("{}  => {}", name2, userMapper.queryByUsername(name2));
         assertNotNull(userMapper.queryByUsername(name1));
         assertNotNull(userMapper.queryByUsername(name2));
+    }
+
+
+
+
+
+    // 异常被吃掉了，报错
+    @Test
+    public void m22() {
+        String name1 = "m22";
+        String name2 = "m23";
+        User m22 = new User(name1, name1);
+        User m23 = new User(name2, name2);
+        try {
+            t5Service2.m22(m22, m23);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

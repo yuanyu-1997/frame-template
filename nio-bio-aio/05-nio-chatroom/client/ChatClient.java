@@ -4,10 +4,13 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
+import java.nio.channels.ClosedSelectorException;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ChatClient {
 
@@ -16,13 +19,13 @@ public class ChatClient {
     private static final String QUIT = "quit";
     private static final int BUFFER = 1024;
 
-    private String host;
-    private int port;
     private SocketChannel client;
-    private ByteBuffer rBuffer = ByteBuffer.allocate(BUFFER);
-    private ByteBuffer wBuffer = ByteBuffer.allocate(BUFFER);
     private Selector selector;
-    private Charset charset = Charset.forName("UTF-8");
+    private final String host;
+    private final int port;
+    private final ByteBuffer rBuffer = ByteBuffer.allocate(BUFFER);
+    private final ByteBuffer wBuffer = ByteBuffer.allocate(BUFFER);
+    private final Charset charset = StandardCharsets.UTF_8;
 
     public ChatClient() {
         this(DEFAULT_SERVER_HOST, DEFAULT_SERVER_PORT);
@@ -51,11 +54,9 @@ public class ChatClient {
         try {
             client = SocketChannel.open();
             client.configureBlocking(false);
-
             selector = Selector.open();
             client.register(selector, SelectionKey.OP_CONNECT);
             client.connect(new InetSocketAddress(host, port));
-
             while (true) {
                 selector.select();
                 Set<SelectionKey> selectionKeys = selector.selectedKeys();
@@ -71,11 +72,10 @@ public class ChatClient {
         } finally {
             close(selector);
         }
-
     }
 
     private void handles(SelectionKey key) throws IOException {
-        // CONNECT事件 - 连接就绪事件
+        // CONNECT事件-连接就绪事件
         if (key.isConnectable()) {
             SocketChannel client = (SocketChannel) key.channel();
             if (client.isConnectionPending()) {
@@ -85,7 +85,7 @@ public class ChatClient {
             }
             client.register(selector, SelectionKey.OP_READ);
         }
-        // READ事件 -  服务器转发消息
+        // READ事件-服务器转发消息
         else if (key.isReadable()) {
             SocketChannel client = (SocketChannel) key.channel();
             String msg = receive(client);
@@ -102,14 +102,12 @@ public class ChatClient {
         if (msg.isEmpty()) {
             return;
         }
-
         wBuffer.clear();
         wBuffer.put(charset.encode(msg));
         wBuffer.flip();
         while (wBuffer.hasRemaining()) {
             client.write(wBuffer);
         }
-
         // 检查用户是否准备退出
         if (readyToQuit(msg)) {
             close(selector);
@@ -118,7 +116,7 @@ public class ChatClient {
 
     private String receive(SocketChannel client) throws IOException {
         rBuffer.clear();
-        while (client.read(rBuffer) > 0);
+        while (client.read(rBuffer) > 0) ;
         rBuffer.flip();
         return String.valueOf(charset.decode(rBuffer));
     }

@@ -8,11 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Server {
-
-    final String LOCALHOST = "localhost";
-    final int DEFAULT_PORT = 8888;
-    AsynchronousServerSocketChannel serverChannel;
-
+    private final String LOCALHOST = "localhost";
+    private final int DEFAULT_PORT = 8888;
+    private AsynchronousServerSocketChannel serverChannel;
     private void close(Closeable closable) {
         if (closable != null) {
             try {
@@ -43,9 +41,7 @@ public class Server {
         }
     }
 
-    private class AcceptHandler implements
-            CompletionHandler<AsynchronousSocketChannel, Object>
-    {
+    private class AcceptHandler implements CompletionHandler<AsynchronousSocketChannel, Object> {
         @Override
         public void completed(AsynchronousSocketChannel result, Object attachment) {
             if (serverChannel.isOpen()) {
@@ -71,10 +67,8 @@ public class Server {
         }
     }
 
-    private class ClientHandler implements
-            CompletionHandler<Integer, Object>
-    {
-        private AsynchronousSocketChannel clientChannel;
+    private static class ClientHandler implements CompletionHandler<Integer, Object> {
+        private final AsynchronousSocketChannel clientChannel;
 
         public ClientHandler(AsynchronousSocketChannel channel) {
             this.clientChannel = channel;

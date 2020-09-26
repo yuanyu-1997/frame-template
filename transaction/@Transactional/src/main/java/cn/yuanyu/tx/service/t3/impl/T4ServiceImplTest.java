@@ -23,7 +23,7 @@ public class T4ServiceImplTest {
     @Resource
     private UserMapper userMapper;
 
-    //springboot 默认使用的代理是cglib代理
+    // cglib代理
     @Autowired
     private T4ServiceImpl t4Service;
 

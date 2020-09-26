@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * 读取控制台信息，并发送到服务器
+ */
 public class UserInputHandler implements Runnable {
     private final ChatClient chatClient;
     public UserInputHandler(ChatClient chatClient) {

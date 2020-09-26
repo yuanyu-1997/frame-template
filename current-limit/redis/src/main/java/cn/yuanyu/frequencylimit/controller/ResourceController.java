@@ -14,7 +14,6 @@ public class ResourceController {
     @Autowired
     private CurrentLimitServiceImpl currentLimitService;
 
-
     // http://localhost:5000/heihei/protectResource
     @RequestLimit(count = 10) // 一分钟能够访问10次
     @GetMapping("/protectResource")
@@ -27,6 +26,5 @@ public class ResourceController {
     public Object simpleResource(HttpServletRequest req) {
         return "普通资源";
     }
-
 
 }

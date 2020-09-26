@@ -13,7 +13,7 @@ public class ChatServer {
     private int DEFAULT_PORT = 8888;
     private final String QUIT = "quit";
     private ServerSocket serverSocket;
-    private Map<Integer, Writer> connectedClients;
+    private final Map<Integer, Writer> connectedClients;
     public ChatServer() {
         connectedClients = new HashMap<>();
     }

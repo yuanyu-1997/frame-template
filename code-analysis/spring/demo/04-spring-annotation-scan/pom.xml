@@ -19,6 +19,7 @@
         <!-- other -->
         <lombok.version>1.18.12</lombok.version>
     </properties>
+
     <dependencies>
         <!-- spring -->
         <dependency>
@@ -46,4 +47,5 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
 </project>

@@ -99,4 +99,13 @@ public class T5ServiceImpl implements T5Service {
 
 
 
+    // T5Service2.m22 -> T5Service.m23
+    @Override
+    @Transactional
+    public void m23(User user) {
+        userMapper.insert(user);
+        int hehe = 1/0;
+    }
+
+
 }

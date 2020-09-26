@@ -36,7 +36,6 @@ public class RedisService {
     /**
      * 读取缓存
      */
-    // get key
     public String get(String key) {
         return stringRedisTemplate.opsForValue().get(key);
     }

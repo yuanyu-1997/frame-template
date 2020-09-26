@@ -27,4 +27,30 @@ public class T5Service2Inpl implements T5Service2 {
         t5Service.m17(b);
         int he = 1/0;
     }
+
+
+
+
+
+    // org.springframework.transaction.UnexpectedRollbackException: Transaction rolled back because it has been marked as rollback-only
+    // T5Service2.m22 -> T5Service.m23
+    @Override
+    @Transactional
+    public void m22(User a, User b) {
+        userMapper.insert(a);
+        try{
+            //
+            // m23 => @Transactional
+            t5Service.m23(b);
+        }catch (Exception e){
+            // 异常被吃掉了
+        }
+
+    }
+
+
+
+
+
+
 }
