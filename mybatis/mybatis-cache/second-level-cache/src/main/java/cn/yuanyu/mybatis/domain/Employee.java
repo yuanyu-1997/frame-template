@@ -3,12 +3,15 @@ package cn.yuanyu.mybatis.domain;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author yuanyu
  */
+// POJO实现Serializable接口
 @Data
 @Builder
-public class Employee {
+public class Employee implements Serializable {
     /**
      * 主键id
      */

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.yuanyu.mybatis.mapper.EmployeeMapper">
+
+    <!-- 2.使用mybatis默认二级缓存 -->
+    <cache/>
+
+    <select id="getEmployeeById" parameterType="int" resultType="cn.yuanyu.mybatis.domain.Employee">
+        SELECT *
+        FROM tb_employee
+        where id = #{id}
+    </select>
+
+    <update id="updateEmployeeIfNecessary" parameterType="cn.yuanyu.mybatis.domain.Employee">
+        update tb_employee
+        <set>
+            <if test="loginName != null">loginname=#{loginname},</if>
+            <if test="password != null">password=#{password},</if>
+            <if test="name != null">name=#{name},</if>
+            <if test="sex != null">sex=#{sex},</if>
+            <if test="age != null">age=#{age},</if>
+            <if test="phone != null">phone=#{phone},</if>
+            <if test="sal != null">sal=#{sal},</if>
+            <if test="state != null">state=#{state}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+</mapper>
