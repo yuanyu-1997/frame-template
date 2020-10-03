@@ -4,7 +4,8 @@ package cn.yuanyu.uaa.enums;
  * 权限范围
  */
 public enum ScopeEnum {
-    BASIC("basic","基础权限"),SUPER("super","所有权限");
+    BASIC("basic","基础权限"),
+    SUPER("super","所有权限");
 
     private String code;
     private String description;

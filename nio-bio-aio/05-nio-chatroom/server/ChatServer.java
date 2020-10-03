@@ -35,6 +35,7 @@ public class ChatServer {
             server = ServerSocketChannel.open();
             server.configureBlocking(false);
             server.socket().bind(new InetSocketAddress(port));
+
             selector = Selector.open();
             server.register(selector, SelectionKey.OP_ACCEPT);
             System.out.println("启动服务器， 监听端口：" + port + "...");

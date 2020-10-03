@@ -9,10 +9,13 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  */
 @Slf4j
 public class DynamicDataSource extends AbstractRoutingDataSource {
+    /**
+     *
+     */
     @Override
     protected Object determineCurrentLookupKey() {
         DataSourceType dsName = DynamicDataSourceContextHolder.getDataSourceType();
-        //log.debug("dsName:{}", dsName);
+        log.debug("dsName:{}", dsName);
         return dsName;
     }
 }

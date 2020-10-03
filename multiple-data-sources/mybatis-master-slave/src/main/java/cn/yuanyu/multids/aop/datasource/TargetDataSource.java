@@ -9,5 +9,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface TargetDataSource {
+    /**
+     * 读库还是写库
+     */
     DataSourceType type();
 }

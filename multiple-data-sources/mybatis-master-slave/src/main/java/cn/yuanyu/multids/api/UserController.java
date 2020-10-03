@@ -22,7 +22,7 @@ public class UserController {
     /**
      * 用户注册
      */
-    @PostMapping("")
+    @PostMapping
     public User register(@RequestBody User user) {
         return userService.register(user);
     }

@@ -43,14 +43,15 @@ public class DynamicDataSourceConfig {
         Map<Object, Object> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceType.WRITE, masterDataSource);
         targetDataSources.put(DataSourceType.READ, slaveDataSource);
+
         DynamicDataSource ds = new DynamicDataSource();
-        //设置数据源映射
+        // 设置数据源映射
         ds.setTargetDataSources(targetDataSources);
-        //设置默认数据源，当无法映射到数据源时会使用默认数据源
+        // 设置默认数据源，当无法映射到数据源时会使用默认数据源
         ds.setDefaultTargetDataSource(masterDataSource);
 
         //ds实现了InitializingBean接口的，下面方法其实是会直动调用的
-        //ds.afterPropertiesSet();
+        // ds.afterPropertiesSet();
         return ds;
     }
 

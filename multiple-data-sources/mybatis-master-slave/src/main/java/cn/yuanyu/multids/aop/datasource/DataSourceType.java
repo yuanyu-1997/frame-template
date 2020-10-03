@@ -6,7 +6,6 @@ import lombok.Getter;
 /**
  * @author yuanyu
  */
-
 @Getter
 public enum DataSourceType {
     /**

@@ -7,7 +7,6 @@ import cn.yuanyu.multids.entity.User;
  * @author yuanyu
  */
 public interface UserService {
-
     /**
      * 用户注册
      *
@@ -37,5 +36,4 @@ public interface UserService {
      * @return 实例对象
      */
     User queryById(Integer id);
-
 }
