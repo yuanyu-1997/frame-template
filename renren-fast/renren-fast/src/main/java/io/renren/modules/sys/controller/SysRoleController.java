@@ -31,7 +31,7 @@ public class SysRoleController extends AbstractController {
     private SysRoleMenuService sysRoleMenuService;
 
     /**
-     * 角色列表
+     * 超级管理员获取角色列表
      */
     @GetMapping("/list")
     @RequiresPermissions("sys:role:list")
@@ -45,7 +45,7 @@ public class SysRoleController extends AbstractController {
     }
 
     /**
-     * 角色列表
+     * 非超级管理员获取角色列表
      */
     @GetMapping("/select")
     @RequiresPermissions("sys:role:select")
@@ -58,6 +58,7 @@ public class SysRoleController extends AbstractController {
         List<SysRoleEntity> list = sysRoleService.listByMap(map);
         return R.ok().put("list", list);
     }
+
     /**
      * 角色信息
      */
@@ -70,6 +71,7 @@ public class SysRoleController extends AbstractController {
         role.setMenuIdList(menuIdList);
         return R.ok().put("role", role);
     }
+
     /**
      * 保存角色
      */

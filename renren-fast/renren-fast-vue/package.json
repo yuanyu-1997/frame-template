@@ -14,7 +14,7 @@
     "build": "gulp"
   },
   "dependencies": {
-    "axios": "0.17.1",
+    "axios": "^0.20.0",
     "babel-plugin-component": "0.10.1",
     "babel-polyfill": "6.26.0",
     "element-ui": "2.8.2",
@@ -23,15 +23,16 @@
     "gulp-load-plugins": "1.5.0",
     "gulp-replace": "0.6.1",
     "gulp-shell": "0.6.5",
-    "lodash": "4.17.5",
-    "node-sass": "4.9.0",
-    "npm": "^6.9.0",
+    "lodash": "^4.17.20",
+    "node-sass": "^4.14.1",
+    "npm": "^6.14.8",
     "sass-loader": "6.0.6",
     "svg-sprite-loader": "3.7.3",
     "vue": "2.5.16",
     "vue-cookie": "1.1.4",
     "vue-router": "3.0.1",
-    "vuex": "3.0.1"
+    "vuex": "3.0.1",
+    "webpack-dev-server": "^2.9.1"
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",
@@ -85,7 +86,6 @@
     "vue-template-compiler": "2.5.16",
     "webpack": "3.6.0",
     "webpack-bundle-analyzer": "2.9.0",
-    "webpack-dev-server": "2.9.1",
     "webpack-merge": "4.1.0"
   },
   "engines": {

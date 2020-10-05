@@ -12,6 +12,10 @@ import java.util.List;
  * @author yuanyu
  */
 public interface SysUserDao extends BaseMapper<SysUserEntity> {
+    /**
+     * 根据用户名，查询系统用户
+     */
+    SysUserEntity queryByUserName(String username);
 
     /**
      * 查询用户的所有权限
@@ -24,10 +28,5 @@ public interface SysUserDao extends BaseMapper<SysUserEntity> {
      * 查询用户的所有菜单ID
      */
     List<Long> queryAllMenuId(Long userId);
-
-    /**
-     * 根据用户名，查询系统用户
-     */
-    SysUserEntity queryByUserName(String username);
 
 }

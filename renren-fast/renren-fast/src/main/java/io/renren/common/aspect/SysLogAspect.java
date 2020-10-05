@@ -75,7 +75,7 @@ public class SysLogAspect {
         try {
             String params = JSON.toJSONString(args);
             sysLog.setParams(params);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 

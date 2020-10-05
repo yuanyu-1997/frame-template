@@ -31,8 +31,10 @@ import java.util.Map;
 public class SysLoginController extends AbstractController {
     @Autowired
     private SysUserService sysUserService;
+
     @Autowired
     private SysUserTokenService sysUserTokenService;
+
     @Autowired
     private SysCaptchaService sysCaptchaService;
 
@@ -47,7 +49,7 @@ public class SysLoginController extends AbstractController {
         BufferedImage image = sysCaptchaService.getCaptcha(uuid);
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
-        //https://www.jianshu.com/p/4edd1775b983
+        // https://www.jianshu.com/p/4edd1775b983
         IOUtils.closeQuietly(out);
     }
 
