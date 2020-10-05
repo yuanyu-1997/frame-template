@@ -17,4 +17,4 @@ selenium-debug.log
 *.sln
 
 ### 不忽略
-!/build/*
+!/build/
