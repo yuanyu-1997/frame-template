@@ -33,9 +33,8 @@ public class SysMenuController extends AbstractController {
     private ShiroService shiroService;
 
     /**
-     * TODO 这里会把用户的所有权限返回给前端
-     * http://localhost:1000/renren-fast/sys/menu/nav
-     * token
+     * 返回该用户锁拥有的权限和菜单
+     *
      * 导航菜单
      */
     @GetMapping("/nav")
@@ -101,6 +100,7 @@ public class SysMenuController extends AbstractController {
         sysMenuService.save(menu);
         return R.ok();
     }
+
     /**
      * 修改
      */
@@ -113,6 +113,7 @@ public class SysMenuController extends AbstractController {
         sysMenuService.updateById(menu);
         return R.ok();
     }
+
     /**
      * 删除
      */

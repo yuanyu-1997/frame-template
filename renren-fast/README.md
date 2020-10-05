@@ -23,12 +23,6 @@ use renren_fast;
 
 
 
-
-
-
-
-
-
 ```xml
 <!-- 查询用户的所有权限 -->
 <select id="queryAllPerms" resultType="string">
@@ -50,7 +44,19 @@ use renren_fast;
 </select>
 ```
 
-![relation](./relation.png)
+![relation](./doc/relation.png)
+
+
+
+![relation](./doc/layout.png)
+
+
+
+
+
+```sql
+
+```
 
 
 
