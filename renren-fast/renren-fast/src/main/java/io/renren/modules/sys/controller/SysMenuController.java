@@ -33,7 +33,7 @@ public class SysMenuController extends AbstractController {
     private ShiroService shiroService;
 
     /**
-     * 返回该用户锁拥有的权限和菜单
+     * 返回该用户锁拥有的权限和菜单（用户登陆成功就会调用这个方法）
      *
      * 导航菜单
      */

@@ -48,15 +48,21 @@ use renren_fast;
 
 
 
+
+
+
+
+
+
 ![relation](./doc/layout.png)
 
+![relation](./doc/1.png)
 
+![relation](./doc/2.png)
 
+![relation](./doc/3.png)
 
-
-```sql
-
-```
+![relation](./doc/4.png)
 
 
 

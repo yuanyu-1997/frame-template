@@ -64,7 +64,6 @@ public class SysLogAspect {
             //注解上的描述
             sysLog.setOperation(syslog.value());
         }
-
         //请求的方法名
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = signature.getName();
@@ -75,19 +74,14 @@ public class SysLogAspect {
         try {
             String params = JSON.toJSONString(args);
             sysLog.setParams(params);
-        } catch (Exception ignored) {
-
-        }
-
+        } catch (Exception ignored) {}
         //获取request
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         //设置IP地址
         sysLog.setIp(IPUtils.getIpAddr(request));
-
         //用户名
         String username = ((SysUserEntity) SecurityUtils.getSubject().getPrincipal()).getUsername();
         sysLog.setUsername(username);
-
         sysLog.setTime(time);
         sysLog.setCreateDate(new Date());
         //保存系统日志

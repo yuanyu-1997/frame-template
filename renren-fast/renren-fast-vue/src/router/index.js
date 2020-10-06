@@ -45,6 +45,8 @@ const mainRoutes = {
   }
 }
 
+// https://router.vuejs.org/zh/guide/advanced/scroll-behavior.html
+
 const router = new Router({
   mode: 'hash',
   scrollBehavior: () => ({ y: 0 }),

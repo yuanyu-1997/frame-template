@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import router from '@/router'
-import store from '@/store'
+import router from '../router'
+import store from '../store'
 
 /**
- * 获取uuid
+ * 获取uuid（后端存储二维码的主键）
  */
 export function getUUID () {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {

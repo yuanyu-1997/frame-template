@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     addOne() {
-      // this.$store.state.count++ // 可以实习效果，但是不能这样做，只有mutations里面的函数才有权力去修改state中的数据
+      // this.$store.state.count++ // 可以实现效果，但是不能这样做，只有mutations里面的函数才有权力去修改state中的数据
       // commit的作用，就是调用某个mutation函数
       this.$store.commit('add')
     },

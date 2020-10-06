@@ -25,6 +25,7 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
+### 后面有个目录不忽略这个文件夹 renren-fast
 build/*
 
 ### VS Code ###

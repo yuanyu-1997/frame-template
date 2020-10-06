@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     count: 0
   },
-  // 只有 mutations 中定义的函数，才有权利修改 state 中的数据
+  // 只有mutations中定义的函数，才有权利修改state中的数据
   mutations: {
     /**
      * +1
