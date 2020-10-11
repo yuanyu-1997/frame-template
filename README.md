@@ -13,3 +13,10 @@ MyBatis
 
 - [Mybatis三种执行器](./mybatis/executor)
 
+renren-fast
+
+1. [renren-fast-vue](./renren-fast/renren-fast-vue)
+2. [renren-fast](./renren-fast/renren-fast)
+3. [renren-generator](./renren-fast/renren-generator)
+4. [shiro](./renren-fast/shiro)
+5. [jwt](./renren-fast/jwt)
