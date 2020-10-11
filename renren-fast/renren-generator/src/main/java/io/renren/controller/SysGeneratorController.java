@@ -35,7 +35,7 @@ public class SysGeneratorController {
 	private SysGeneratorService sysGeneratorService;
 	
 	/**
-	 * 列表
+	 * 返回数据库的列表信息
 	 */
 	@ResponseBody
 	@RequestMapping("/list")
@@ -44,9 +44,10 @@ public class SysGeneratorController {
 		
 		return R.ok().put("page", pageUtil);
 	}
-	
+
 	/**
 	 * 生成代码
+	 * @param tables 表名
 	 */
 	@RequestMapping("/code")
 	public void code(String tables, HttpServletResponse response) throws IOException{

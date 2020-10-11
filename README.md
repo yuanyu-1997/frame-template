@@ -20,3 +20,5 @@ renren-fast
 3. [renren-generator](./renren-fast/renren-generator)
 4. [shiro](./renren-fast/shiro)
 5. [jwt](./renren-fast/jwt)
+6. [代码生成（velocity）](./renren-fast/velocity)
+

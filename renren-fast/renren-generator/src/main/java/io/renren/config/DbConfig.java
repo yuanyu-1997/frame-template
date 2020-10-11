@@ -35,8 +35,6 @@ public class DbConfig {
     @Autowired
     private PostgreSQLGeneratorDao postgreSQLGeneratorDao;
 
-    private static boolean mongo = false;
-
     @Bean
     @Primary
     @Conditional(MongoNullCondition.class)
@@ -54,16 +52,8 @@ public class DbConfig {
         }
     }
 
-    @Bean
-    @Primary
-    @Conditional(MongoCondition.class)
-    public GeneratorDao getMongoDBDao(MongoDBGeneratorDao mongoDBGeneratorDao) {
-        mongo = true;
-        return mongoDBGeneratorDao;
-    }
 
-    public static boolean isMongo() {
-        return mongo;
-    }
+
+
 
 }
