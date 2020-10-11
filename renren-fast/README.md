@@ -1,4 +1,4 @@
-
+# 建库建表
 
 ```bash
 docker run \
@@ -19,9 +19,7 @@ create database renren_fast default char set utf8mb4;
 use renren_fast;
 ```
 
-
-
-
+# 核心表
 
 ```xml
 <!-- 查询用户的所有权限 -->
@@ -46,15 +44,11 @@ use renren_fast;
 
 ![relation](./doc/relation.png)
 
-
-
-
-
-
-
-
+# main.vue
 
 ![relation](./doc/layout.png)
+
+# 添加目录或者菜单流程
 
 ![relation](./doc/1.png)
 
@@ -63,6 +57,222 @@ use renren_fast;
 ![relation](./doc/3.png)
 
 ![relation](./doc/4.png)
+
+# 动态添加路由流程分析
+
+
+
+ http://localhost:1000/renren-fast/sys/menu/nav?t=1602227261263 
+
+```json
+{
+    "msg": "success",
+    "menuList": [
+        {
+            "menuId": 1,
+            "parentId": 0,
+            "parentName": null,
+            "name": "系统管理",
+            "url": null,
+            "perms": null,
+            "type": 0,
+            "icon": "system",
+            "orderNum": 0,
+            "open": null,
+            "list": [
+                {
+                    "menuId": 2,
+                    "parentId": 1,
+                    "parentName": null,
+                    "name": "管理员列表",
+                    "url": "sys/user",
+                    "perms": null,
+                    "type": 1,
+                    "icon": "admin",
+                    "orderNum": 1,
+                    "open": null,
+                    "list": null
+                },
+                {
+                    "menuId": 3,
+                    "parentId": 1,
+                    "parentName": null,
+                    "name": "角色管理",
+                    "url": "sys/role",
+                    "perms": null,
+                    "type": 1,
+                    "icon": "role",
+                    "orderNum": 2,
+                    "open": null,
+                    "list": null
+                },
+                {
+                    "menuId": 4,
+                    "parentId": 1,
+                    "parentName": null,
+                    "name": "菜单管理",
+                    "url": "sys/menu",
+                    "perms": null,
+                    "type": 1,
+                    "icon": "menu",
+                    "orderNum": 3,
+                    "open": null,
+                    "list": null
+                },
+                {
+                    "menuId": 5,
+                    "parentId": 1,
+                    "parentName": null,
+                    "name": "SQL监控",
+                    "url": "http://127.0.0.1:1000/renren-fast/druid/sql.html",
+                    "perms": null,
+                    "type": 1,
+                    "icon": "sql",
+                    "orderNum": 4,
+                    "open": null,
+                    "list": null
+                },
+                {
+                    "menuId": 6,
+                    "parentId": 1,
+                    "parentName": null,
+                    "name": "系统日志",
+                    "url": "sys/log",
+                    "perms": "sys:log:list",
+                    "type": 1,
+                    "icon": "log",
+                    "orderNum": 7,
+                    "open": null,
+                    "list": null
+                }
+            ]
+        }
+    ],
+    "code": 0,
+    "permissions": [
+        "sys:user:list",
+        "sys:menu:update",
+        "sys:menu:delete",
+        "sys:menu:save",
+        "sys:role:save",
+        "sys:role:info",
+        "sys:menu:list",
+        "sys:role:update",
+        "sys:user:info",
+        "sys:user:delete",
+        "sys:role:delete",
+        "sys:user:update",
+        "sys:role:list",
+        "sys:menu:info",
+        "sys:menu:select",
+        "sys:user:save",
+        "sys:role:select",
+        "sys:log:list"
+    ]
+}
+```
+
+
+
+fnAddDynamicMenuRoutes(data.menuList)
+
+```json
+[ // 调用fnAddDynamicMenuRoutes传入的data.menuList
+    {
+        "menuId": 1,
+        "parentId": 0,
+        "parentName": null,
+        "name": "系统管理",
+        "url": null,
+        "perms": null,
+        "type": 0,
+        "icon": "system",
+        "orderNum": 0,
+        "open": null,
+        "list": [ // fnAddDynamicMenuRoutes里面的temp变量
+            {
+                "menuId": 2,
+                "parentId": 1,
+                "parentName": null,
+                "name": "管理员列表",
+                "url": "sys/user",
+                "perms": null,
+                "type": 1,
+                "icon": "admin",
+                "orderNum": 1,
+                "open": null,
+                "list": null
+            },
+            {
+                "menuId": 3,
+                "parentId": 1,
+                "parentName": null,
+                "name": "角色管理",
+                "url": "sys/role",
+                "perms": null,
+                "type": 1,
+                "icon": "role",
+                "orderNum": 2,
+                "open": null,
+                "list": null
+            },
+            {
+                "menuId": 4,
+                "parentId": 1,
+                "parentName": null,
+                "name": "菜单管理",
+                "url": "sys/menu",
+                "perms": null,
+                "type": 1,
+                "icon": "menu",
+                "orderNum": 3,
+                "open": null,
+                "list": null
+            },
+            {
+                "menuId": 5,
+                "parentId": 1,
+                "parentName": null,
+                "name": "SQL监控",
+                "url": "http://127.0.0.1:1000/renren-fast/druid/sql.html",
+                "perms": null,
+                "type": 1,
+                "icon": "sql",
+                "orderNum": 4,
+                "open": null,
+                "list": null
+            },
+            {
+                "menuId": 6,
+                "parentId": 1,
+                "parentName": null,
+                "name": "系统日志",
+                "url": "sys/log",
+                "perms": "sys:log:list",
+                "type": 1,
+                "icon": "log",
+                "orderNum": 7,
+                "open": null,
+                "list": null
+            }
+        ]
+    }
+]
+```
+
+
+
+```json
+
+```
+
+
+
+
+
+
+
+
 
 
 

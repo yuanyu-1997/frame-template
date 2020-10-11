@@ -1,0 +1,8 @@
+spring:
+  redis:
+    host: 121.36.33.154
+    port: 6100
+server:
+  servlet:
+    context-path: /emm-cgi
+  port: 5000

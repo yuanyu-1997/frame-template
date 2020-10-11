@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import axios from 'axios'
-import router from '@/router'
+import router from '../router'
 import qs from 'qs'
 import merge from 'lodash/merge'
-import { clearLoginInfo } from '@/utils'
+import {clearLoginInfo} from './index'
+
 // 1000 * 30
 const http = axios.create({
   timeout: 1000 * 1000,
@@ -29,7 +30,7 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(response => {
   if (response.data && response.data.code === 401) { // 401, token失效
     clearLoginInfo()
-    router.push({ name: 'login' })
+    router.push({name: 'login'})
   }
   return response
 }, error => {
@@ -51,7 +52,7 @@ http.adornUrl = (actionName) => {
  * @param {*} openDefultParams 是否开启默认参数?
  */
 http.adornParams = (params = {}, openDefultParams = true) => {
-  var defaults = {
+  const defaults = {
     't': new Date().getTime() // 防止缓存
   }
   return openDefultParams ? merge(defaults, params) : params
@@ -66,7 +67,7 @@ http.adornParams = (params = {}, openDefultParams = true) => {
  *  form: 'application/x-www-form-urlencoded; charset=utf-8'
  */
 http.adornData = (data = {}, openDefultdata = true, contentType = 'json') => {
-  var defaults = {
+  const defaults = {
     't': new Date().getTime()
   }
   data = openDefultdata ? merge(defaults, data) : data

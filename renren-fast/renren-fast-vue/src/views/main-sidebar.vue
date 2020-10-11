@@ -10,9 +10,7 @@
           <icon-svg name="shouye" class="site-sidebar__menu-icon"></icon-svg>
           <span slot="title">首页</span>
         </el-menu-item>
-        <!--
-          动态加载
-        -->
+        <!-- 动态加载 -->
         <sub-menu
           v-for="menu in menuList"
           :key="menu.menuId"
@@ -36,13 +34,22 @@
     components: {
       SubMenu
     },
+    // TODO
+    created () {
+      this.menuList = JSON.parse(sessionStorage.getItem('menuList') || '[]')
+      this.dynamicMenuRoutes = JSON.parse(sessionStorage.getItem('dynamicMenuRoutes') || '[]')
+      this.routeHandle(this.$route)
+    },
     computed: {
+      // 侧边栏, 布局皮肤, light(浅色) / dark(黑色)
       sidebarLayoutSkin: {
         get () { return this.$store.state.common.sidebarLayoutSkin }
       },
+      // 侧边栏, 折叠状态
       sidebarFold: {
         get () { return this.$store.state.common.sidebarFold }
       },
+      // 侧边栏, 菜单
       menuList: {
         get () { return this.$store.state.common.menuList },
         set (val) { this.$store.commit('common/updateMenuList', val) }
@@ -63,17 +70,12 @@
     watch: {
       $route: 'routeHandle'
     },
-    created () {
-      this.menuList = JSON.parse(sessionStorage.getItem('menuList') || '[]')
-      this.dynamicMenuRoutes = JSON.parse(sessionStorage.getItem('dynamicMenuRoutes') || '[]')
-      this.routeHandle(this.$route)
-    },
     methods: {
       // 路由操作
       routeHandle (route) {
         if (route.meta.isTab) {
           // tab选中, 不存在先添加
-          var tab = this.mainTabs.filter(item => item.name === route.name)[0]
+          let tab = this.mainTabs.filter(item => item.name === route.name)[0]
           if (!tab) {
             if (route.meta.isDynamic) {
               route = this.dynamicMenuRoutes.filter(item => item.name === route.name)[0]

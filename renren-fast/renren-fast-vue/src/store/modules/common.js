@@ -11,8 +11,9 @@ export default {
     sidebarFold: false,
     // 侧边栏, 菜单
     menuList: [],
+    //
     menuActiveName: '',
-    // 内容, 是否需要刷新
+    // 内容, 是否需要刷新（是否显示内容区）
     contentIsNeedRefresh: false,
     // 主入口标签页
     mainTabs: [],

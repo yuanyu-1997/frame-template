@@ -12,13 +12,17 @@
     </ul>
     <h3>知识点</h3>
     <ul>
+      <li>Vuex：<a href="https://yuanyu.blog.csdn.net/article/details/107032713" target="_blank">https://yuanyu.blog.csdn.net/article/details/107032713</a></li>
       <li>sessionStorage：<a href="https://www.runoob.com/jsref/prop-win-sessionstorage.html" target="_blank">https://www.runoob.com/jsref/prop-win-sessionstorage.html</a></li>
+      <li>template：<a href="https://segmentfault.com/q/1010000010727886" target="_blank">https://segmentfault.com/q/1010000010727886</a></li>
+      <li>Array.prototype.concat()：<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat" target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat</a></li>
     </ul>
   </div>
 </template>
 
 <script>
   // https://www.jianshu.com/p/c805b74e1f14?utm_campaign
+  // https://www.jianshu.com/p/d316b493e92c
   export default {
   }
 </script>

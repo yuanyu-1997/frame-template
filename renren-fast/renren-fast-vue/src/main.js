@@ -3,6 +3,7 @@ import App from './App'
 import router from './router'                 // api: https://github.com/vuejs/vue-router
 import store from './store'                   // api: https://github.com/vuejs/vuex
 import VueCookie from 'vue-cookie'            // api: https://github.com/alfhen/vue-cookie
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css' // 所有的组件都生效
 

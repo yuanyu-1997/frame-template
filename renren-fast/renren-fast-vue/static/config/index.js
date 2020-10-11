@@ -2,6 +2,7 @@
  * 开发环境
  */
 (function () {
+  //
   window.SITE_CONFIG = {}
 
   // TODO 后端地址
