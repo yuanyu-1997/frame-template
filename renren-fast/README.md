@@ -272,9 +272,40 @@ fnAddDynamicMenuRoutes(data.menuList)
 
 # renren-generator
 
+```xaml
+<mapper namespace="io.renren.dao.MySQLGeneratorDao">
 
+</mapper>
+```
+![velocity-1](./doc/velocity-1.png)
 
+## 查看表信息
 
+```sql
+SELECT table_name    tableName,
+       ENGINE        ENGINE,
+       table_comment tableComment,
+       create_time   createTime
+FROM information_schema.tables
+WHERE table_schema = (SELECT DATABASE()) AND table_name = 'tb_user'
+```
+
+![velocity-1](./doc/velocity-2.png)
+
+## 查看表字段信息
+
+```sql
+SELECT column_name    columnName,
+       data_type      dataType,
+       column_comment columnComment,
+       column_key     columnKey,
+       extra          extra
+FROM information_schema.columns
+WHERE table_name = 'tb_user' AND table_schema = (SELECT DATABASE())
+ORDER BY ordinal_position
+```
+
+![velocity-1](./doc/velocity-3.png)
 
 
 
