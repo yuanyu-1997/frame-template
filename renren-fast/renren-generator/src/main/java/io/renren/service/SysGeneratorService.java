@@ -10,14 +10,14 @@ package io.renren.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import io.renren.dao.GeneratorDao;
+import io.renren.dao.MySQLGeneratorDao;
 import io.renren.utils.GenUtils;
 import io.renren.utils.PageUtils;
 import io.renren.utils.Query;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +30,10 @@ import java.util.zip.ZipOutputStream;
  */
 @Service
 public class SysGeneratorService {
-    @Autowired
-    private GeneratorDao generatorDao;
 
+
+    @Resource
+    private MySQLGeneratorDao generatorDao;
 
     public PageUtils queryList(Query query) {
         Page<?> page = PageHelper.startPage(query.getPage(), query.getLimit());
@@ -63,7 +64,6 @@ public class SysGeneratorService {
             //生成代码
             GenUtils.generatorCode(table, columns, zip);
         }
-
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
     }

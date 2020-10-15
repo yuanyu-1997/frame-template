@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+    let input = "2020-03-21 14:23:31";
+
+    let len = 3*3600*1000;
+    let iData = new Date(input);
+    let timestamp = (iData).getTime();
+
+    console.log(timestamp)
+    console.log(new Date(timestamp +len))
+    console.log(dateFormat(new Date(timestamp + len)));
+
+    function dateFormat(date) {
+        const fullYear = date.getFullYear();
+        const month = date.getMonth() + 1
+        const d = date.getDate()
+        const hours = date.getHours()
+        const minutes = date.getMinutes()
+        const seconds = date.getSeconds()
+        console.log(fullYear+"-"+month+"-"+d+" "+hours+"-"+minutes+"-"+seconds)
+    }
+
+</script>
+
+
+</body>
+</html>

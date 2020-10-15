@@ -8,11 +8,12 @@ import org.junit.Test;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 // https://www.jianshu.com/p/5913903324ff
 public class VelocityTest {
 
     @Test
-    public void test_(){
+    public void test_() {
         // 初始化模板引擎
         VelocityEngine velocityEngine = new VelocityEngine();
         velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
@@ -38,7 +39,9 @@ public class VelocityTest {
 
         // 输出
         StringWriter sw = new StringWriter();
-        template.merge(velocityContext,sw);
+        template.merge(velocityContext, sw);
         System.out.println(sw.toString());
+
     }
+
 }

@@ -1,10 +1,10 @@
-//TODO 创建VueI18n对象
+// TODO 创建VueI18n对象
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 
 Vue.use(VueI18n)
 
-//判断游览器环境
+// 判断游览器环境
 let locale;
 const language = navigator.language.toLocaleLowerCase();
 if (language === "zh-cn") {
