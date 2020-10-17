@@ -160,7 +160,7 @@
       },
       // 删除
       deleteHandle (id) {
-        var userIds = id ? [id] : this.dataListSelections.map(item => {
+        const userIds = id ? [id] : this.dataListSelections.map(item => {
           return item.userId
         })
         this.$confirm(`确定对[id=${userIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {

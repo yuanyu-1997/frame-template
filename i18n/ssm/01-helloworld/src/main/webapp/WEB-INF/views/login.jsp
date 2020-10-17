@@ -13,6 +13,8 @@
 <body>
 <!--
     国际化的区域信息是决定国际化显示的因素 -> org.springframework.web.servlet.DispatcherServlet.localeResolver
+
+    org.springframework.context.support.AbstractApplicationContext.getMessage(java.lang.String, java.lang.Object[], java.util.Locale)
 -->
 <h1>
     <fmt:message key="welcomeInfo"/>

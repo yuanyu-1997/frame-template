@@ -42,14 +42,14 @@
   import { isEmail, isMobile } from '../../../utils/validate'
   export default {
     data () {
-      var validatePassword = (rule, value, callback) => {
+      const validatePassword = (rule, value, callback) => {
         if (!this.dataForm.id && !/\S/.test(value)) {
           callback(new Error('密码不能为空'))
         } else {
           callback()
         }
       }
-      var validateComfirmPassword = (rule, value, callback) => {
+      const validateComfirmPassword = (rule, value, callback) => {
         if (!this.dataForm.id && !/\S/.test(value)) {
           callback(new Error('确认密码不能为空'))
         } else if (this.dataForm.password !== value) {
@@ -58,14 +58,14 @@
           callback()
         }
       }
-      var validateEmail = (rule, value, callback) => {
+      const validateEmail = (rule, value, callback) => {
         if (!isEmail(value)) {
           callback(new Error('邮箱格式错误'))
         } else {
           callback()
         }
       }
-      var validateMobile = (rule, value, callback) => {
+      const validateMobile = (rule, value, callback) => {
         if (!isMobile(value)) {
           callback(new Error('手机号格式错误'))
         } else {

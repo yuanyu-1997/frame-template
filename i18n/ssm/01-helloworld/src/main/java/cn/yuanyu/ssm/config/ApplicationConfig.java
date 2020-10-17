@@ -12,5 +12,4 @@ import org.springframework.stereotype.Controller;
 @ComponentScan(basePackages = "cn.yuanyu.ssm"
         , excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class)})
 public class ApplicationConfig {
-
 }

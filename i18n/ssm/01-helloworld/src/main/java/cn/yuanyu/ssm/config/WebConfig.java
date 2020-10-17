@@ -21,7 +21,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
         , includeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class)}
         , useDefaultFilters = false)
 public class WebConfig implements WebMvcConfigurer {
-
     /**
      * 视图解析器
      */
@@ -32,7 +31,6 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setSuffix(".jsp");
         return resolver;
     }
-
     /**
      * 国际化
      */
