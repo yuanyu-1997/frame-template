@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.yuanyu.studentapi.mapper.sys.SysUserTokenMapper">
+<mapper namespace="cn.yuanyu.app.mapper.sys.SysUserTokenMapper">
 
-    <select id="queryByToken" resultType="cn.yuanyu.studentapi.entity.sys.SysUserTokenEntity">
+    <select id="queryByToken" resultType="cn.yuanyu.app.entity.sys.SysUserTokenEntity">
         select *
         from sys_user_token
         where token = #{token}
     </select>
+
 </mapper>

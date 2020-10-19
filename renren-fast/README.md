@@ -10,7 +10,7 @@ docker run \
 ```
 
 ```sql
-jdbc:mysql://ip地址:30000/?serverTimezone=UTC
+jdbc:mysql://121.36.33.154:30000/?serverTimezone=UTC
 ```
 
 ```sql
@@ -172,8 +172,6 @@ use renren_fast;
 }
 ```
 
-
-
 fnAddDynamicMenuRoutes(data.menuList)
 
 ```json
@@ -260,13 +258,113 @@ fnAddDynamicMenuRoutes(data.menuList)
 ]
 ```
 
+# 验证码登陆流程
 
+前端在获取验证码的时候会传递一个uuid给后端
 
-```json
+```javascript
+// src/views/common/login.vue
+<img :src="captchaPath" @click="getCaptcha()" alt="">
+export default {
+	data () {
+	  return {
+		captchaPath: ''
+	  }
+	},
+	created () {
+	  this.getCaptcha() // 获取二维码
+	},
+	methods: {
+	  // 获取验证码
+	  getCaptcha () {
+		this.dataForm.uuid = getUUID()
+		this.captchaPath = this.$http.adornUrl(`/captcha.jpg?uuid=${this.dataForm.uuid}`)
+	  }
+	}
+}
 
+// src/utils/index.js
+/**
+ * 获取uuid
+ */
+function getUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    return (c === 'x' ? (Math.random() * 16 | 0) : ('r&0x3' | '0x8')).toString(16)
+  })
+}
+```
+后端生成验证码的时候会把这个**uuid+code**存入数据库
+```java
+// io.renren.modules.sys.controller.SysLoginController#captcha
+@GetMapping("captcha.jpg")
+public void captcha(HttpServletResponse response, String uuid) throws IOException {
+    response.setHeader("Cache-Control", "no-store, no-cache");
+    response.setContentType("image/jpeg");
+    // 获取图片验证码
+    BufferedImage image = sysCaptchaService.getCaptcha(uuid);
+    ServletOutputStream out = response.getOutputStream();
+    ImageIO.write(image, "jpg", out);
+    IOUtils.closeQuietly(out);
+}
+
+//io.renren.modules.sys.service.impl.SysCaptchaServiceImpl#getCaptcha
+@Override
+public BufferedImage getCaptcha(String uuid) {
+	if (StringUtils.isBlank(uuid)) {
+		throw new RRException("uuid不能为空");
+	}
+	//生成文字验证码
+	String code = producer.createText();
+	SysCaptchaEntity captchaEntity = new SysCaptchaEntity();
+	captchaEntity.setUuid(uuid);
+	captchaEntity.setCode(code);
+	// 5分钟后过期
+	captchaEntity.setExpireTime(DateUtils.addDateMinutes(new Date(), 5));
+	this.save(captchaEntity); // 保存到sys_captcha表中
+	return producer.createImage(code);
+}
 ```
 
+在用户登陆的时候会根据**uuid+code**来确定用户输入的验证码是否正确
 
+```sql
+// io.renren.modules.sys.controller.SysLoginController#login
+@PostMapping("/sys/login")
+public Map<String, Object> login(@RequestBody SysLoginForm form) {
+	boolean captcha = sysCaptchaService.validate(form.getUuid(), form.getCaptcha());
+	if (!captcha) {
+		return R.error("验证码不正确");
+	}
+	//用户信息
+	SysUserEntity user = sysUserService.queryByUserName(form.getUsername());
+	//账号不存在、密码错误
+	if (user == null || !user.getPassword().equals(new Sha256Hash(form.getPassword(), user.getSalt()).toHex())) {
+		return R.error("账号或密码不正确");
+	}
+	//账号锁定
+	if (user.getStatus() == 0) {
+		return R.error("账号已被锁定,请联系管理员");
+	}
+	//生成token，并保存到数据库
+	return sysUserTokenService.createToken(user.getUserId());
+}
+
+// io.renren.modules.sys.service.impl.SysCaptchaServiceImpl#validate
+@Override
+public boolean validate(String uuid, String code) {
+	// 通过uuid+code找到这条记录，来判断用户验证码输入是否正确
+	SysCaptchaEntity captchaEntity = this.getOne(new QueryWrapper<SysCaptchaEntity>().eq("uuid", uuid)); 
+	if (captchaEntity == null) {
+		return false;
+	}
+	//删除验证码
+	this.removeById(uuid);
+	if (captchaEntity.getCode().equalsIgnoreCase(code) && captchaEntity.getExpireTime().getTime() >= System.currentTimeMillis()) {
+		return true;
+	}
+	return false;
+}
+```
 
 
 

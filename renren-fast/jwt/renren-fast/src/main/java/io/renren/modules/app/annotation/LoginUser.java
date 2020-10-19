@@ -8,6 +8,8 @@ import java.lang.annotation.Target;
 
 /**
  * 登录用户信息
+ *
+ * @author yuanyu
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)

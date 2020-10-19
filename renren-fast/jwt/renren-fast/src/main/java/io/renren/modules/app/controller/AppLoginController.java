@@ -21,38 +21,36 @@ import java.util.Map;
 
 /**
  * APP登录授权
+ *
+ * @author yuanyu
  */
 @RestController
 @RequestMapping("/app")
 @Api(tags = "APP登录接口")
 public class AppLoginController {
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private JwtUtils jwtUtils;
 
     /**
      * 登录
-     *
-     * http://localhost:6969/app/login
-     * {"mobile":"17783649163","password":"123"}
      */
     @PostMapping("/login")
     @ApiOperation("登录")
-    public R login(@RequestBody LoginForm form){
+    public R login(@RequestBody LoginForm form) {
         //表单校验
         ValidatorUtils.validateEntity(form);
 
         //用户登录
         long userId = userService.login(form);
-
         //生成token
         String token = jwtUtils.generateToken(userId);
-
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
         map.put("expire", jwtUtils.getExpire());
-
         return R.ok(map);
     }
 

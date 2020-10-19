@@ -32,7 +32,7 @@
         <httpcore.version>4.4.13</httpcore.version>
         <commons.codec.version>1.10</commons.codec.version>
         <!-- other -->
-        <swagger.version>2.7.0</swagger.version>
+        <swagger.version>2.9.2</swagger.version>
         <commons.lang.version>3.11</commons.lang.version>
     </properties>
 

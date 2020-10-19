@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 用户
+ *
+ * @author yuanyu
  */
 @Mapper
 public interface UserDao extends BaseMapper<UserEntity> {

@@ -12,6 +12,8 @@ import java.util.Date;
 
 /**
  * jwt工具类
+ *
+ * @author yuanyu
  */
 @Slf4j
 @Component
@@ -35,6 +37,7 @@ public class JwtUtils {
 
     /**
      * 生成jwt token
+     *
      * @param userId 用户主键，后面会从生成jwt里面取出这个值，用于标识当前用户
      * @return jwt
      */
@@ -42,10 +45,9 @@ public class JwtUtils {
         Date nowDate = new Date();
         //过期时间
         Date expireDate = new Date(nowDate.getTime() + expire * 1000);
-
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
-                .setSubject(userId+"")
+                .setSubject(userId + "")
                 .setIssuedAt(nowDate)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, secret)
@@ -58,7 +60,7 @@ public class JwtUtils {
                     .setSigningKey(secret)
                     .parseClaimsJws(token)
                     .getBody();
-        }catch (Exception e){
+        } catch (Exception e) {
             log.debug("validate is token error ", e);
             return null;
         }
@@ -66,7 +68,8 @@ public class JwtUtils {
 
     /**
      * token是否过期
-     * @return  true : 过期
+     *
+     * @return true : 过期
      */
     public boolean isTokenExpired(Date expiration) {
         return expiration.before(new Date());

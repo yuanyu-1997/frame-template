@@ -22,6 +22,7 @@ import java.util.Set;
  */
 @Component
 public class OAuth2Realm extends AuthorizingRealm {
+
     @Autowired
     private ShiroService shiroService;
 

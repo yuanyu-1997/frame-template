@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.yuanyu.studentapi.mapper.sys.SysUserMapper">
-    <select id="selectUserByUsername" resultType="cn.yuanyu.studentapi.entity.sys.SysUserEntity">
+<mapper namespace="cn.yuanyu.app.mapper.sys.SysUserMapper">
+    <select id="selectUserByUsername" resultType="cn.yuanyu.app.entity.sys.SysUserEntity">
         select *
         from sys_user
         where username = #{username}

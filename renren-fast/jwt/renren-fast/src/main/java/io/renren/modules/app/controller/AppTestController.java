@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * APP测试接口
+ *
+ * @author yuanyu
  */
 @RestController
 @RequestMapping("/app")
@@ -23,26 +25,26 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppTestController {
 
     /**
-     * http://localhost:6969/app/userInfo
-     * token
+     * http://localhost:6969/app/userInfo?token=
      */
     @Login
     @GetMapping("/userInfo")
     @ApiOperation("获取用户信息")
-    public R userInfo(@LoginUser UserEntity user){
+    public R userInfo(@LoginUser UserEntity user) {
         return R.ok().put("user", user);
     }
+
 
     @Login
     @GetMapping("/userId")
     @ApiOperation("获取用户ID")
-    public R userInfo(@RequestAttribute("userId") Integer userId){
+    public R userInfo(@RequestAttribute("userId") Integer userId) {
         return R.ok().put("userId", userId);
     }
 
     @GetMapping("/notToken")
     @ApiOperation("忽略Token验证测试")
-    public R notToken(){
+    public R notToken() {
         return R.ok().put("msg", "无需token也能访问。。。");
     }
 

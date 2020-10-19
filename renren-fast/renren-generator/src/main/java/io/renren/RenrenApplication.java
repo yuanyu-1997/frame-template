@@ -6,10 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // http://localhost:6969/
 
+/**
+ * @author yuanyu
+ */
 @SpringBootApplication
 @MapperScan("io.renren.dao")
 public class RenrenApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(RenrenApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RenrenApplication.class, args);
+    }
 }

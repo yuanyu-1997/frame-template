@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.yuanyu.studentapi.mapper.sys.SysUserRolePermissionMapper">
+<mapper namespace="cn.yuanyu.app.mapper.sys.SysUserRolePermissionMapper">
 
     <!-- 返回用户详细信息 -->
-    <resultMap type="cn.yuanyu.studentapi.entity.sys.SysUserEntity" id="userDetailresultMap">
+    <resultMap type="cn.yuanyu.app.entity.sys.SysUserEntity" id="userDetailresultMap">
         <!-- 封装用户 -->
         <id property="id" column="userId"/>
         <result property="username" column="username"/>
@@ -11,12 +11,12 @@
         <result property="salt" column="salt"/>
         <result property="status" column="status"/>
         <!-- 封装角色 -->
-        <collection property="roles" ofType="cn.yuanyu.studentapi.entity.sys.SysRoleEntity">
+        <collection property="roles" ofType="cn.yuanyu.app.entity.sys.SysRoleEntity">
             <id property="id" column="roleId"/>
             <result property="roleName" column="roleName"/>
             <result property="roleDesc" column="roleDesc"/>
             <!-- 封装权限 -->
-            <collection property="permissions" ofType="cn.yuanyu.studentapi.entity.sys.SysPermissionEntity">
+            <collection property="permissions" ofType="cn.yuanyu.app.entity.sys.SysPermissionEntity">
                 <id property="id" column="permId"/>
                 <result property="permTag" column="permTag"/>
                 <result property="permDesc" column="permDesc"/>
@@ -40,7 +40,7 @@
                  join sys_role r on r.id = ur.role_id
                  join sys_role_permission rp on rp.role_id = r.id
                  join sys_permission p on p.id = rp.perm_id
-        where username = #{username};
+        where username = #{username}
     </select>
 
     <insert id="insertUserRoleRelation">
