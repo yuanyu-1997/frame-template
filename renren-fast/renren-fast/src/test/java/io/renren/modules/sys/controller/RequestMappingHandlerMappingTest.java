@@ -14,15 +14,15 @@ import java.util.Map;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class SysLoginControllerTest {
-
+public class RequestMappingHandlerMappingTest {
     @Autowired
     private ApplicationContext applicationContext;
 
+
     @Test
-    public void login() {
-        Map<RequestMappingInfo, HandlerMethod> handlerMethodMap = applicationContext.getBean(RequestMappingHandlerMapping.class).getHandlerMethods();
-        
+    public void test_(){
+        RequestMappingHandlerMapping requestMappingHandlerMapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+        Map<RequestMappingInfo, HandlerMethod> handlerMethodMap = requestMappingHandlerMapping.getHandlerMethods();
 
     }
 }

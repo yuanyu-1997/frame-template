@@ -9,6 +9,7 @@ import java.util.Date;
 /**
  * @author yuanyu
  */
+@PersistJobDataAfterExecution // 多次调用Job的时候，都会对Job进行持久化，即保存一个数据的信息
 public class HelloJob implements Job {
     public HelloJob() {
         System.out.println("cn.yuanyu.app.job.HelloJob.HelloJob...");
@@ -18,6 +19,13 @@ public class HelloJob implements Job {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+
+    private Integer count;
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     @Override
@@ -55,6 +63,14 @@ public class HelloJob implements Job {
         String nextFireTime = simpleDateFormat.format(jobExecutionContext.getNextFireTime());
         System.out.println("当前任务的执行时间: " + fireTime);
         System.out.println("下一次任务的执行时间: " + nextFireTime);
+
+
+        // 输出count
+        ++count;
+        // 将count存放到JobDataMap中
+        jobExecutionContext.getJobDetail().getJobDataMap().put("count", count);
+
+        System.out.println("count: "+count);
 
         System.out.println();
     }

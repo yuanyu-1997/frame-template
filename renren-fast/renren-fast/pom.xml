@@ -8,10 +8,11 @@
     <packaging>jar</packaging>
 
     <description>
-        https://www.renren.io/guide/
         https://gitee.com/renrenio/renren-fast
         https://gitee.com/renrenio/renren-fast-vue
         https://gitee.com/renrenio/renren-generator
+
+        https://www.renren.io/guide/
         http://demo.open.renren.io/renren-fast/
     </description>
 
@@ -37,7 +38,7 @@
         <shiro.version>1.4.0</shiro.version>
         <!-- 验证码 -->
         <kaptcha.version>0.0.9</kaptcha.version>
-        <!-- other -->
+        <!-- utils -->
         <lombok.version>1.18.4</lombok.version>
         <fastjson.version>1.2.70</fastjson.version>
         <joda.time.version>2.9.9</joda.time.version>
@@ -110,7 +111,7 @@
             <artifactId>kaptcha</artifactId>
             <version>${kaptcha.version}</version>
         </dependency>
-        <!-- other -->
+        <!-- utils -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>

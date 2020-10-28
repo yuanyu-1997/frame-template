@@ -23,6 +23,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/sys/log")
 public class SysLogController {
+
     @Autowired
     private SysLogService sysLogService;
 
@@ -36,4 +37,5 @@ public class SysLogController {
         PageUtils page = sysLogService.queryPage(params);
         return R.ok().put("page", page);
     }
+
 }

@@ -14,9 +14,10 @@ public class HelloJobTest {
         JobDetail jobDetail = JobBuilder.newJob(HelloJob.class)   // 加载任务类，与HelloJob完成绑定，要求HelloJob实现Job接口
                 .withIdentity("job1", "group1")       // 参数一：任务的名称（唯一实例）、参数二：任务组的名称
                 .usingJobData("message","打印日志")   // 传递参数，名称message
+                .usingJobData("count", 0)
                 .build();
         System.out.println("名称: " + jobDetail.getKey().getName());
-        System.out.println("组名称: " + jobDetail.getKey().getGroup());
+        System.out.println("组名称: " + jobDetail.getKey().getGroup()); // DEFAULT
         System.out.println("任务类: " + jobDetail.getJobClass().getName());
 
         // 3、触发器（Trigger），定义触发器，马上执行，然后每5秒重复执行一次
