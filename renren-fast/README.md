@@ -22,6 +22,10 @@ use renren_fast;
 # 核心表
 
 ```xml
+<!--
+	io.renren.modules.sys.dao.SysUserDao
+-->
+
 <!-- 查询用户的所有权限 -->
 <select id="queryAllPerms" resultType="string">
     select m.perms
@@ -30,9 +34,6 @@ use renren_fast;
              LEFT JOIN sys_menu m on rm.menu_id = m.menu_id
     where ur.user_id = #{userId}
 </select>
-```
-
-```xml
 <!-- 查询用户的所有菜单ID -->
 <select id="queryAllMenuId" resultType="long">
     select distinct rm.menu_id
@@ -44,27 +45,30 @@ use renren_fast;
 
 ![relation](./doc/relation.png)
 
-# main.vue
+# 前端页面布局
 
 ![relation](./doc/layout.png)
 
 # 添加目录或者菜单流程
 
+添加目录
+
 ![relation](./doc/1.png)
+
+添加菜单
 
 ![relation](./doc/2.png)
 
-![relation](./doc/3.png)
+添加目录菜单后会在后台**sys_menu**生成对应的数据，前端页面按照对应的格式放置即可
 
-![relation](./doc/4.png)
+![relation](./doc/3.png)
 
 # 动态添加路由流程分析
 
-
-
- http://localhost:1000/renren-fast/sys/menu/nav?t=1602227261263 
+用户登陆成功后，会获取该用户锁拥有的权限和菜单 io.renren.modules.sys.controller.SysMenuController#nav
 
 ```json
+// http://localhost:1000/renren-fast/sys/menu/nav?t=1602227261263
 {
     "msg": "success",
     "menuList": [
@@ -118,33 +122,8 @@ use renren_fast;
                     "orderNum": 3,
                     "open": null,
                     "list": null
-                },
-                {
-                    "menuId": 5,
-                    "parentId": 1,
-                    "parentName": null,
-                    "name": "SQL监控",
-                    "url": "http://127.0.0.1:1000/renren-fast/druid/sql.html",
-                    "perms": null,
-                    "type": 1,
-                    "icon": "sql",
-                    "orderNum": 4,
-                    "open": null,
-                    "list": null
-                },
-                {
-                    "menuId": 6,
-                    "parentId": 1,
-                    "parentName": null,
-                    "name": "系统日志",
-                    "url": "sys/log",
-                    "perms": "sys:log:list",
-                    "type": 1,
-                    "icon": "log",
-                    "orderNum": 7,
-                    "open": null,
-                    "list": null
                 }
+                ...
             ]
         }
     ],
@@ -154,28 +133,15 @@ use renren_fast;
         "sys:menu:update",
         "sys:menu:delete",
         "sys:menu:save",
-        "sys:role:save",
-        "sys:role:info",
-        "sys:menu:list",
-        "sys:role:update",
-        "sys:user:info",
-        "sys:user:delete",
-        "sys:role:delete",
-        "sys:user:update",
-        "sys:role:list",
-        "sys:menu:info",
-        "sys:menu:select",
-        "sys:user:save",
-        "sys:role:select",
-        "sys:log:list"
+        ...
     ]
 }
 ```
 
-fnAddDynamicMenuRoutes(data.menuList)
+前端会根据后端返回的数据，在路由前置守卫中判断是否已经添加过动态添加路由信息，如果没有会调用fnAddDynamicMenuRoutes(data.menuList)来添加动态路由 **src/router/index.js** 
 
 ```json
-[ // 调用fnAddDynamicMenuRoutes传入的data.menuList
+[ // 调用fnAddDynamicMenuRoutes传入的data.menuList，动态添加路由信息
     {
         "menuId": 1,
         "parentId": 0,
@@ -213,50 +179,128 @@ fnAddDynamicMenuRoutes(data.menuList)
                 "orderNum": 2,
                 "open": null,
                 "list": null
-            },
-            {
-                "menuId": 4,
-                "parentId": 1,
-                "parentName": null,
-                "name": "菜单管理",
-                "url": "sys/menu",
-                "perms": null,
-                "type": 1,
-                "icon": "menu",
-                "orderNum": 3,
-                "open": null,
-                "list": null
-            },
-            {
-                "menuId": 5,
-                "parentId": 1,
-                "parentName": null,
-                "name": "SQL监控",
-                "url": "http://127.0.0.1:1000/renren-fast/druid/sql.html",
-                "perms": null,
-                "type": 1,
-                "icon": "sql",
-                "orderNum": 4,
-                "open": null,
-                "list": null
-            },
-            {
-                "menuId": 6,
-                "parentId": 1,
-                "parentName": null,
-                "name": "系统日志",
-                "url": "sys/log",
-                "perms": "sys:log:list",
-                "type": 1,
-                "icon": "log",
-                "orderNum": 7,
-                "open": null,
-                "list": null
             }
+            ...
         ]
     }
 ]
 ```
+
+```javascript
+router.beforeEach((to, from, next) => {
+  // 添加动态(菜单)路由
+  // 1. 全局路由 or 已经添加, 直接访问
+  // 2. 获取菜单列表, 添加并保存本地存储
+  if (router.options.isAddDynamicMenuRoutes || fnCurrentRouteType(to, globalRoutes) === 'global') {
+    next()
+  } else {
+    http({
+      url: http.adornUrl('/sys/menu/nav'),
+      method: 'get',
+      params: http.adornParams()
+    }).then(({data}) => {
+      if (data && data.code === 0) {
+        fnAddDynamicMenuRoutes(data.menuList)
+        router.options.isAddDynamicMenuRoutes = true
+        sessionStorage.setItem('menuList', JSON.stringify(data.menuList || '[]')) // 后面渲染侧边栏需要
+        sessionStorage.setItem('permissions', JSON.stringify(data.permissions || '[]'))
+        next({...to, replace: true})
+      } else {
+        sessionStorage.setItem('menuList', '[]')
+        sessionStorage.setItem('permissions', '[]')
+        next()
+      }
+    }).catch((e) => {
+      console.log(`%c${e} 请求菜单列表和权限失败，跳转至登录页！！`, 'color:blue')
+      router.push({name: 'login'})
+    })
+  }
+})
+```
+
+```javascript
+/**
+ * 添加动态(菜单)路由
+ * @param {*} menuList 菜单列表
+ * @param {*} routes 递归创建的动态(菜单)路由
+ */
+function fnAddDynamicMenuRoutes(menuList = [], routes = []) {
+  let temp = []
+  for (let i = 0; i < menuList.length; i++) {
+    if (menuList[i].list && menuList[i].list.length >= 1) {
+      temp = temp.concat(menuList[i].list)
+    } else if (menuList[i].url && /\S/.test(menuList[i].url)) { // url不为空，菜单
+      // {"menuId":6,"parentId":1,"parentName":null,"name":"系统日志","url":"sys/log","perms":"sys:log:list","type":1,"icon":"log","orderNum":7,"open":null,"list":null}
+      menuList[i].url = menuList[i].url.replace(/^\//, '')
+      const route = {
+        path: menuList[i].url.replace('/', '-'),
+        component: null,
+        name: menuList[i].url.replace('/', '-'),
+        meta: {
+          menuId: menuList[i].menuId,
+          title: menuList[i].name,
+          isDynamic: true,
+          isTab: true,
+          iframeUrl: ''
+        }
+      }
+      // url以 http[s]:// 开头，通过iframe展示
+      if (isURL(menuList[i].url)) {
+        route['path'] = `i-${menuList[i].menuId}`
+        route['name'] = `i-${menuList[i].menuId}`
+        route['meta']['iframeUrl'] = menuList[i].url
+      } else {
+        try {
+          // 导入组件
+          route['component'] = _import(`modules/${menuList[i].url}`) || null
+        } catch (e) {
+        }
+      }
+      // 添加一个路由
+      routes.push(route)
+    }
+  }
+  // menuList[i].list不为空还要递归
+  if (temp.length >= 1) {
+    fnAddDynamicMenuRoutes(temp, routes)
+  } else {
+    mainRoutes.name = 'main-dynamic'
+    mainRoutes.children = routes
+    router.addRoutes([
+      mainRoutes,
+      {path: '*', redirect: {name: '404'}}
+    ])
+    sessionStorage.setItem('dynamicMenuRoutes', JSON.stringify(mainRoutes.children || '[]')) // 这里用于后面渲染导航栏用
+    console.log('\n')
+    console.log('%c!<-------------------- 动态(菜单)路由 s -------------------->', 'color:blue')
+    // console.log(mainRoutes.children)
+    console.log(router)
+    console.log('%c!<-------------------- 动态(菜单)路由 e -------------------->', 'color:blue')
+  }
+}
+```
+
+```html
+<!--
+	src/views/main-sidebar.vue
+-->
+<!-- 动态加载 -->
+<sub-menu
+  v-for="menu in menuList"
+  :key="menu.menuId"
+  :menu="menu"
+  :dynamicMenuRoutes="dynamicMenuRoutes">
+</sub-menu>
+<script>
+created () {
+  this.menuList = JSON.parse(sessionStorage.getItem('menuList') || '[]')
+  this.dynamicMenuRoutes = JSON.parse(sessionStorage.getItem('dynamicMenuRoutes') || '[]') 
+  this.routeHandle(this.$route)
+}
+</script>
+```
+
+
 
 # 验证码登陆流程
 
@@ -366,9 +410,7 @@ public boolean validate(String uuid, String code) {
 }
 ```
 
-
-
-# renren-generator
+# 代码生成器原理
 
 ```xaml
 <mapper namespace="io.renren.dao.MySQLGeneratorDao">
@@ -409,8 +451,6 @@ ORDER BY ordinal_position
 
 
 
+- https://blog.csdn.net/qq_39126213/article/details/106183467 
 
-
- https://blog.csdn.net/qq_39126213/article/details/106183467 
-
-https://zhuanlan.zhihu.com/p/100414292
+- https://zhuanlan.zhihu.com/p/100414292

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author yuanyu
  */
 public class IPUtils {
+
     private static final Logger logger = LoggerFactory.getLogger(IPUtils.class);
 
     /**

@@ -32,13 +32,12 @@ import java.util.Date;
 @Aspect
 @Component
 public class SysLogAspect {
+
     @Autowired
     private SysLogService sysLogService;
 
     @Pointcut("@annotation(io.renren.common.annotation.SysLog)")
-    public void logPointCut() {
-
-    }
+    public void logPointCut() {}
 
     @Around("logPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
@@ -47,18 +46,16 @@ public class SysLogAspect {
         Object result = point.proceed();
         //执行时长(毫秒)
         long time = System.currentTimeMillis() - beginTime;
-
         //保存日志
         saveSysLog(point, time);
-
         return result;
     }
 
     private void saveSysLog(ProceedingJoinPoint joinPoint, long time) {
+        SysLogEntity sysLog = new SysLogEntity();
+
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-
-        SysLogEntity sysLog = new SysLogEntity();
         SysLog syslog = method.getAnnotation(SysLog.class);
         if (syslog != null) {
             //注解上的描述
@@ -68,7 +65,6 @@ public class SysLogAspect {
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = signature.getName();
         sysLog.setMethod(className + "." + methodName + "()");
-
         //请求的参数
         Object[] args = joinPoint.getArgs();
         try {
@@ -87,4 +83,5 @@ public class SysLogAspect {
         //保存系统日志
         sysLogService.save(sysLog);
     }
+
 }
