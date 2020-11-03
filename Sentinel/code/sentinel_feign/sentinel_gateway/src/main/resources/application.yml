@@ -1,0 +1,27 @@
+# 端口
+server:
+  port: 9013
+
+# 应用的名称
+spring:
+  application:
+    name: sentinel-gateway
+  # 网关配置
+  cloud:
+    gateway:
+      routes:
+        - id: sentinel-feign-gateway
+          # 路由转发路径
+          uri: lb://sentinel-feign-client:9012
+          # 断言
+          predicates:
+            - Path=/hello/**
+    sentinel:
+      transport:
+        dashboard: localhost:9000
+
+# eureka配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9010/eureka

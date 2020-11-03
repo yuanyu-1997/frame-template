@@ -1,0 +1,15 @@
+#tomcat端口
+server:
+  port: 9011
+
+#应用的名称
+spring:
+  application:
+    name: sentinel-feign-provider
+
+#eureka的配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9010/eureka  #要注册到的注册中心的地址
+

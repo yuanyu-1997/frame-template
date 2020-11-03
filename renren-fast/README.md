@@ -9,7 +9,7 @@ docker run \
 -di --rm mysql:8.0.18
 ```
 
-```sql
+```
 jdbc:mysql://121.36.33.154:30000/?serverTimezone=UTC
 ```
 
@@ -59,13 +59,11 @@ use renren_fast;
 
 ![relation](./doc/2.png)
 
-添加目录菜单后会在后台**sys_menu**生成对应的数据，前端页面按照对应的格式放置即可
-
-![relation](./doc/3.png)
+添加目录和菜单后会在后台的**sys_menu**表中生成对应的数据，前端页面按照对应的目录放置即可，前端页面放置位置参考添加菜单时填写的菜单路由![relation](./doc/3.png)
 
 # 动态添加路由流程分析
 
-用户登陆成功后，会获取该用户锁拥有的权限和菜单 io.renren.modules.sys.controller.SysMenuController#nav
+用户登陆成功后，会触发路由前置守卫，如果没有添加路由信息就会从后端获取该用户所拥有的权限和菜单 io.renren.modules.sys.controller.SysMenuController#nav
 
 ```json
 // http://localhost:1000/renren-fast/sys/menu/nav?t=1602227261263
@@ -107,19 +105,6 @@ use renren_fast;
                     "type": 1,
                     "icon": "role",
                     "orderNum": 2,
-                    "open": null,
-                    "list": null
-                },
-                {
-                    "menuId": 4,
-                    "parentId": 1,
-                    "parentName": null,
-                    "name": "菜单管理",
-                    "url": "sys/menu",
-                    "perms": null,
-                    "type": 1,
-                    "icon": "menu",
-                    "orderNum": 3,
                     "open": null,
                     "list": null
                 }
@@ -412,9 +397,10 @@ public boolean validate(String uuid, String code) {
 
 # 代码生成器原理
 
+代码生成器原理很简单，反向分析数据库的表信息，然后填充模板文件即可
+
 ```xaml
 <mapper namespace="io.renren.dao.MySQLGeneratorDao">
-
 </mapper>
 ```
 ![velocity-1](./doc/velocity-1.png)
@@ -454,3 +440,4 @@ ORDER BY ordinal_position
 - https://blog.csdn.net/qq_39126213/article/details/106183467 
 
 - https://zhuanlan.zhihu.com/p/100414292
+
