@@ -1,4 +1,6 @@
+### application.yml ###
 spring:
   redis:
-    host: 121.36.33.154
+    host: 120.79.202.181
     port: 6000
+    password: admin

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.baker.mybatis.mapper.UserMapper">
+
+    <select id="selectUser" resultType="cn.baker.mybatis.entity.User">
+        select *
+        from user
+        <where>
+            <if test="username!=null">
+                username = #{username}
+            </if>
+            <if test="password!=null">
+                and password = #{password}
+            </if>
+            <if test="age!=null">
+                and age = #{age}
+            </if>
+        </where>
+    </select>
+    <select id="selectUserByUsername" resultType="cn.baker.mybatis.entity.User">
+        select *
+        from user
+        where username = #{username}
+    </select>
+
+
+</mapper>

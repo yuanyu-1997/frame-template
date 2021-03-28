@@ -1,0 +1,2 @@
+mybatis:
+  mapper-locations: classpath:cn/baker/app/mapper/user/xml/*.xml,classpath:cn/baker/app/mapper/video/xml/*.xml
