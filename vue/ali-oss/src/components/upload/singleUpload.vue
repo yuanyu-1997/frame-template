@@ -81,12 +81,10 @@ export default {
      * @param file
      */
     beforeUpload(file) {
-      alert('beforeUpload')
       let _self = this
       return new Promise((resolve, reject) => {
         policy().then(response => {
-          alert("beforeUpload...")
-          console.log("响应数据:\n"+response)
+          console.log("响应数据:\n" + JSON.stringify(response, null, 2))
           _self.dataObj.policy = response.data.policy
           _self.dataObj.signature = response.data.signature
           _self.dataObj.ossaccessKeyId = response.data.accessid

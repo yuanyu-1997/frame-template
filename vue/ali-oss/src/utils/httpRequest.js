@@ -15,7 +15,8 @@ const http = axios.create({
  * @param {*} actionName action方法名称
  */
 http.adornUrl = (actionName) => {
-  return window.SITE_CONFIG.baseUrl + actionName
+  //return window.SITE_CONFIG.baseUrl + actionName
+  return "http://localhost:5600" + actionName
 }
 
 /**
