@@ -4,7 +4,8 @@
         action="http://baker-blog.oss-cn-chengdu.aliyuncs.com"
         :data="dataObj"
         list-type="picture"
-        :multiple="false" :show-file-list="showFileList"
+        :multiple="false"
+        :show-file-list="showFileList"
         :file-list="fileList"
         :before-upload="beforeUpload"
         :on-remove="handleRemove"
@@ -20,7 +21,7 @@
 </template>
 <script>
 import {policy} from './policy'
-import {getUUID} from '../../utils'
+import {getUUID} from '@/utils'
 
 export default {
   name: 'singleUpload',
