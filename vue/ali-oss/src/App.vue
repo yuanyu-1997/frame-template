@@ -35,7 +35,7 @@ export default {
      * 表单提交
      */
     dataFormSubmit() {
-
+      alert(this.dataForm.logo)
     }
   }
 }
