@@ -19,6 +19,8 @@
 		https://github.com/sa-spring/spring-webflux
 
 		http://www.reactive-streams.org/
+		https://zhuanlan.zhihu.com/p/92460075
+		https://zhuanlan.zhihu.com/p/143614001
 	</description>
 
 	<properties>
@@ -41,6 +43,11 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 	</dependencies>
 

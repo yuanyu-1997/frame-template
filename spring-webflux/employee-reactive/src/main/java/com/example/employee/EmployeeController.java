@@ -34,7 +34,7 @@ public class EmployeeController {
     private Flux<Employee> getAllEmployees() {
         return employeeRepository.findAllEmployees()
                 .delayElements(Duration.ofMillis(100))
-                .doOnNext(employee -> System.out.println(System.currentTimeMillis() + " <= Server produces:" + employee));
+                .doOnNext(employee -> System.out.println("[" + Constants.count.incrementAndGet() + "]" + System.currentTimeMillis() + " <= Server produces:" + employee));
     }
 
     /**

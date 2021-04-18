@@ -47,17 +47,17 @@ public class EmployeeWebClient {
                             // 每次请求两个，我处理完成后再拿两个
                             count = 0;
                             subscription.request(2);
-                            System.out.println(System.currentTimeMillis() + " => Client requested 2 ");
+                            System.out.println("[" + Constants.count.incrementAndGet() + "]" + System.currentTimeMillis() + " => Client requested 2 ");
 
                         }
-                        System.out.println(System.currentTimeMillis() + " => Client subscribes: " + t);
+                        System.out.println("[" + Constants.count.incrementAndGet() + "]" + System.currentTimeMillis() + " => Client subscribes: " + t);
                     }
 
                     @Override
                     public void onSubscribe(Subscription subscription) {
                         this.subscription = subscription;
                         subscription.request(2);
-                        System.out.println(System.currentTimeMillis() + " => Client requested 2 ");
+                        System.out.println("[" + Constants.count.incrementAndGet() + "]" + System.currentTimeMillis() + " => Client requested 2 ");
                     }
 
                     @Override
@@ -66,7 +66,7 @@ public class EmployeeWebClient {
 
                     @Override
                     public void onComplete() {
-                        System.out.println(System.currentTimeMillis() + " => Client completed");
+                        System.out.println("[" + Constants.count.incrementAndGet() + "]" + System.currentTimeMillis() + " => Client completed");
                     }
                 });
     }
