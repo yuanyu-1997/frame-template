@@ -6,10 +6,11 @@
     "serve": "vue-cli-service serve"
   },
   "dependencies": {
+    "mavon-editor": "^2.9.0",
+    "axios": "0.17.1",
     "core-js": "^3.6.5",
     "element": "^0.1.4",
     "element-ui": "^2.13.2",
-    "mavon-editor": "^2.9.1",
     "vue": "^2.6.11",
     "vue-router": "^3.4.5"
   },

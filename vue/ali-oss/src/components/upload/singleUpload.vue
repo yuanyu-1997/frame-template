@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-upload
-        action="http://baker-blog.oss-cn-chengdu.aliyuncs.com"
+        :action="action"
         :data="dataObj"
         list-type="picture"
         :multiple="false"
@@ -55,11 +55,13 @@ export default {
   },
   data() {
     return {
+      action: "",
+      // 上传时附带的额外参数
       dataObj: {
         policy: '',
         signature: '',
         key: '',
-        ossaccessKeyId: '',
+        ossAccessKeyId: '',
         dir: '',
         host: ''
       },
@@ -83,16 +85,19 @@ export default {
     beforeUpload(file) {
       let _self = this
       return new Promise((resolve, reject) => {
-        policy().then(response => {
-          console.log("响应数据:\n" + JSON.stringify(response, null, 2))
+        policy({moduleName:'test'}).then(response => {
+          //console.log("这是什么${filename}");
+          console.log("获取文件签名:\n" + JSON.stringify(response, null, 2))
           _self.dataObj.policy = response.data.policy
           _self.dataObj.signature = response.data.signature
-          _self.dataObj.ossaccessKeyId = response.data.accessid
+          _self.dataObj.ossAccessKeyId = response.data.accessId
           _self.dataObj.key = response.data.dir + getUUID() + '_${filename}'
           _self.dataObj.dir = response.data.dir
           _self.dataObj.host = response.data.host
+          _self.action = response.data.host;
           resolve(true)
         }).catch(err => {
+          console.error(err)
           reject(false)
         })
       })
